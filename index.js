@@ -18,6 +18,7 @@ const bot = linebot({
 
 // 當收到訊息時
 bot.on('message', async (event) => {
+  // 抓API回復
   let msg = ''
   try {
     const data = await rp({ uri: 'https://kktix.com/events.json', json: true })
@@ -27,6 +28,12 @@ bot.on('message', async (event) => {
   }
   event.reply(msg)
 })
+// 重複你的話(打法)
+// bot.on('message', event=> {
+//   if(event.message.type === 'text'){
+//     event.reply(event.message.text)
+//   }
+// })
 
 // 在 port 啟動， '/' 為根目錄
 bot.listen('/', process.env.PORT, () => {
