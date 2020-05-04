@@ -17,6 +17,13 @@ const bot = linebot({
   channelSecret: process.env.CHANNEL_SECRET,
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
 })
+
+function delHtmlTag(str) {
+  return str.replace(/<[^>]+>/g, '') // 正则去掉所有的html标记
+}
+// delHtmlTag('<p>123456</p><span>我是誰?</sapn')
+// console.log(delHtmlTag('<p>123456</p><span>我是誰?</sapn>'))
+
 // const $ = cheerio.load('<p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="background-color:white">馬來西亞經濟學者咸認為，馬國雖有效抑制新型冠狀病毒疫情擴散')
 // console.log($('p').text())
 
@@ -30,7 +37,8 @@ bot.on('message', async (event) => {
     // console.log(($('p').text()))
     // msg = $('p').text()
     // msg = data.entry[0].title
-    msg = data[0].PageContent
+    // console.log(delHtmlTag(data[0].PageContent))
+    msg = delHtmlTag(data[0].PageContent)
   } catch (error) {
     msg = '發生錯誤'
   }
