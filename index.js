@@ -17,8 +17,8 @@ const bot = linebot({
   channelSecret: process.env.CHANNEL_SECRET,
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
 })
-// const $ = cheerio.load('<p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="background-color:white">馬來西亞經濟學者咸認為，馬國雖有效抑制新型冠狀病毒疫情擴散')
-// console.log($('p').text())
+const $ = cheerio.load('<p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="background-color:white">馬來西亞經濟學者咸認為，馬國雖有效抑制新型冠狀病毒疫情擴散')
+console.log($('p').text())
 
 // 當收到訊息時
 bot.on('message', async (event) => {
@@ -26,6 +26,7 @@ bot.on('message', async (event) => {
   let msg = ''
   try {
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+
     const $ = cheerio.load(data[0].PageContent)
     console.log(($('p').text()))
     msg = $('p').text()
