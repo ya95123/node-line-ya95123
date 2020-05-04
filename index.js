@@ -42,7 +42,7 @@ bot.on('message', async (event) => {
     // console.log(($('p').text()))
     // msg = $('p').text()
     // console.log(delHtmlTag(data[0].PageContent))
-    msg = `${data[0].PagePublishTime}\n地區：${deldot(data[0].PageSummary)}\n\n近期消息：${data[0].PageTitle}\n主要內容：${delHtmlTag(data[0].PageContent)}\n\n消息來源皆自：經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+    msg = `${data[0].PagePublishTime}\n地區：${deldot(data[0].PageSummary)}\n\n🌟近期消息🌟\n${data[0].PageTitle}\n📨主要內容：${delHtmlTag(data[0].PageContent)}\n\n消息來源皆自：經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
   } catch (error) {
     msg = '發生錯誤'
   }
