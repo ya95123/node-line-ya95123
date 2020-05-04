@@ -18,8 +18,9 @@ const bot = linebot({
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
 })
 
+// 正則去掉所有的html标记
 function delHtmlTag(str) {
-  return str.replace(/<[^>]+>/g, '') // 正则去掉所有的html标记
+  return str.replace(/<[^>]+>/g, '')
 }
 // delHtmlTag('<p>123456</p><span>我是誰?</sapn')
 // console.log(delHtmlTag('<p>123456</p><span>我是誰?</sapn>'))
@@ -38,7 +39,7 @@ bot.on('message', async (event) => {
     // msg = $('p').text()
     // msg = data.entry[0].title
     // console.log(delHtmlTag(data[0].PageContent))
-    msg = delHtmlTag(data[0].PageContent)
+    msg = `${delHtmlTag(data[0].PagePublishTime)}<br><br>近期消息：${delHtmlTag(data[0].PageTitle)}<br>${delHtmlTag(data[0].PageContent)}`
   } catch (error) {
     msg = '發生錯誤'
   }
