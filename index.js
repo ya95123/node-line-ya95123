@@ -19,11 +19,15 @@ const bot = linebot({
 })
 
 // 正則去掉所有的html标记
-function delHtmlTag(str) {
+// function delHtmlTag(str) {
+//   return str.replace(/<[^>]+>/g, '')
+// }
+const delHtmlTag = (str) => {
   return str.replace(/<[^>]+>/g, '')
 }
-// delHtmlTag('<p>123456</p><span>我是誰?</sapn')
-// console.log(delHtmlTag('<p>123456</p><span>我是誰?</sapn>'))
+const deldot = (str) => {
+  return str.replace(/,/g, '&ensp;')
+}
 
 // const $ = cheerio.load('<p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="background-color:white">馬來西亞經濟學者咸認為，馬國雖有效抑制新型冠狀病毒疫情擴散')
 // console.log($('p').text())
@@ -37,9 +41,8 @@ bot.on('message', async (event) => {
     // const $ = cheerio.load(data[0].PageContent)
     // console.log(($('p').text()))
     // msg = $('p').text()
-    // msg = data.entry[0].title
     // console.log(delHtmlTag(data[0].PageContent))
-    msg = `${data[0].PagePublishTime}\n地區：${data[0].PageSummary}\n\n近期消息：${data[0].PageTitle}\n${delHtmlTag(data[0].PageContent)}`
+    msg = `${data[0].PagePublishTime}\n地區：${deldot(data[0].PageSummary)}\n\n近期消息：${data[0].PageTitle}\n主要內容：${delHtmlTag(data[0].PageContent)}\n\n消息來源皆自：經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
   } catch (error) {
     msg = '發生錯誤'
   }
