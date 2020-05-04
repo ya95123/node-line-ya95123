@@ -25,8 +25,11 @@ const bot = linebot({
 const delHtmlTag = (str) => {
   return str.replace(/<[^>]+>/g, '')
 }
-const trSpace = (str) => {
-  return str.replace(/,T/g, ' ')
+const delDot = (str) => {
+  return str.replace(/,/g, ' ')
+}
+const delT = (str) => {
+  return str.replace(/T/g, ' ')
 }
 
 // const $ = cheerio.load('<p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="background-color:white">馬來西亞經濟學者咸認為，馬國雖有效抑制新型冠狀病毒疫情擴散')
@@ -42,7 +45,7 @@ bot.on('message', async (event) => {
     // console.log(($('p').text()))
     // msg = $('p').text()
     // console.log(delHtmlTag(data[0].PageContent))
-    msg = `台灣時間：${trSpace(data[0].PagePublishTime)}\n地區：${trSpace(data[0].PageSummary)}\n⭐ 近期消息\n${data[0].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[0].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+    msg = `台灣時間：${delT(data[0].PagePublishTime)}\n地區：${delDot(data[0].PageSummary)}\n⭐ 近期消息\n${data[0].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[0].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
   } catch (error) {
     msg = '發生錯誤'
   }
