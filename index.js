@@ -26,11 +26,11 @@ bot.on('message', async (event) => {
   let msg = ''
   try {
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
-
-    const $ = cheerio.load(data[0].PageContent)
-    console.log(($('p').text()))
-    msg = $('p').text()
+    // const $ = cheerio.load(data[0].PageContent)
+    // console.log(($('p').text()))
+    // msg = $('p').text()
     // msg = data.entry[0].title
+    msg = data[0].PageContent
   } catch (error) {
     msg = '發生錯誤'
   }
