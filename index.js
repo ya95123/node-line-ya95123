@@ -39,15 +39,42 @@ const delT = (str) => {
 bot.on('message', async (event) => {
   // 抓API回復
   // TODO 1.打出國家名稱/數量，跳出該國經濟新聞(篇數)(看能不能分段傳) 2.今日最新消息 3.圖文按鈕(歐洲/美洲/中東/亞洲)
-  let msg = ''
+  let msgError = ''
+  let msgTodayAll = ''
+  let msgTodayNum = ''
+  let msgAreaAll = ''
+  let msgAreaDay = ''
+  let msgAssignAll = ''
+  let msgAssignDay = ''
+  let msg7All = ''
+  let msgDayAll = ''
+
+  // TODO **先測試成功再繼續寫條件式
   try {
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+    for (let i = 0; i < data.length; i++) {
+      // 今日全部資訊 (今日)
+      if (event.message === "今日") {
+        msgTodayAll += `${i})台灣時間：${delT(data[i].PagePublishTime)}\n地區：${delDot(data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[i].PageContent)}\n`
+        if (i === data.length - 1) {
+          msgTodayAll += `${i})台灣時間：${delT(data[i].PagePublishTime)}\n地區：${delDot(data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[i].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+          event.reply(msgTodayAll)
+        }
+      }
+      // 今日指定篇數 (今日/3)
+      // 區域7天全部 (亞太)
+      // 區域幾天內 (歐洲/3)
+      // 國家7天全部 (越南)
+      // 國家幾天內 (韓國/3)
+      // 7天全部 (all)
+      // 幾天內 (all/3)
+    }
 
-    msg = `台灣時間：${delT(data[0].PagePublishTime)}\n地區：${delDot(data[0].PageSummary)}\n⭐ 近期消息 ⭐\n「${data[0].PageTitle}」\n\n📨 主要內容：${delHtmlTag(data[0].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+    msg = `台灣時間：${delT(data[0].PagePublishTime)}\n地區：${delDot(data[0].PageSummary)}\n⭐ 近期消息 ⭐\n${data[0].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[0].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
   } catch (error) {
-    msg = '發生錯誤'
+    msgError = '目前沒有資訊'
   }
-  event.reply(msg)
+  // event.reply(msg)
 })
 // 重複你的話(打法)
 // bot.on('message', event=> {
