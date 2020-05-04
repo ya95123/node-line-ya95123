@@ -2,8 +2,10 @@
 import linebot from 'linebot'
 // 引用 doyenv 套件
 import dotenv from 'dotenv'
-// 引用request 套件
+// 引用 request 套件
 import rp from 'request-promise'
+// 引用 import 套件
+import cheerio from 'cheerio'
 
 // 讀取 .env 檔
 dotenv.config()
@@ -15,14 +17,19 @@ const bot = linebot({
   channelSecret: process.env.CHANNEL_SECRET,
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
 })
+// const $ = cheerio.load('<p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="background-color:white">馬來西亞經濟學者咸認為，馬國雖有效抑制新型冠狀病毒疫情擴散')
+// console.log($('p').text())
 
 // 當收到訊息時
 bot.on('message', async (event) => {
   // 抓API回復
   let msg = ''
   try {
-    const data = await rp({ uri: 'https://kktix.com/events.json', json: true })
-    msg = data.entry[0].title
+    const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+    const $ = cheerio.load(data[0].PageContent)
+    console.log(($('p').text()))
+    msg = $('p').text()
+    // msg = data.entry[0].title
   } catch (error) {
     msg = '發生錯誤'
   }
