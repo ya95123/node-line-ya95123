@@ -39,7 +39,7 @@ bot.on('message', async (event) => {
     // msg = $('p').text()
     // msg = data.entry[0].title
     // console.log(delHtmlTag(data[0].PageContent))
-    msg = `${delHtmlTag(data[0].PagePublishTime)}<br><br>近期消息：${delHtmlTag(data[0].PageTitle)}<br>${delHtmlTag(data[0].PageContent)}`
+    msg = `${delHtmlTag(data[0].PagePublishTime)}\n\n近期消息：${delHtmlTag(data[0].PageTitle)}\n${delHtmlTag(data[0].PageContent)}`
   } catch (error) {
     msg = '發生錯誤'
   }
