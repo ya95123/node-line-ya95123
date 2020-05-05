@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    const delHtmlTag = (str) => {
+      return str.replace(/<[^>]+>/g, '')
+    }
+    const delDot = (str) => {
+      return str.replace(/,/g, ' ')
+    }
+    const delT = (str) => {
+      return str.replace(/T/g, ' ')
+    }
+
+    const test = async () => {
+      let msg = []
+      let date = new Date();
+      try {
+        let test = axios.get('https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true');
+
+        test = await test;
+        console.log(test);
+        console.log(test.data[1].PageTitle);
+        console.log(test.data.length);
+        console.log(msg);
+        console.log(date);
+        console.log(`${date.getMonth() + 1}-${date.getDate()}`);
+
+        // msg[i] = `${i + 1})台灣時間：${delT(test.data[i].PagePublishTime)}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(test.data[i].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+        // }
+
+        for (let i = 0; i < test.data.length; i++) {
+          // console.log(msg);
+          // if (i === 2) {
+          if (test.data[i].PagePublishTime.includes(`5-5`)) {
+            msg[i] = (i + 1)
+          }
+          console.log(msg[i]);
+
+          document.write(`${msg[i]}<hr>`);
+        }
+
+
+      } catch (error) {
+        msg = '目前沒有資訊'
+      }
+      // event.reply(msg)
+    }
+    test();
+  </script>
+</body>
+
+</html>

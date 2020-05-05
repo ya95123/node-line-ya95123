@@ -50,17 +50,9 @@ bot.on('message', async (event) => {
   try {
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
     const msg = []
-    const date = new Date()
-    if (event.message.text === '今日' || event.message.text === 'today') {
-      // 國家
-      // for (let i = 0; i < data.length; i++) {
-      if (data[i].PagePublishTime.includes(`0${date.getMonth() + 1}`) && data[i].PagePublishTime.includes(`0${date.getDate()}`)) {
-        msg[i] = `${i + 1}.台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
-        event.reply(msg)
-        console.log(msg)
-      }
-      // }
-    } else if (parseInt(event.message.text) <= 5) {
+    // const date = new Date()
+
+    if (parseInt(event.message.text) <= 5) {
       // 指定最新幾則(5則以下)
       for (let i = 0; i < parseInt(event.message.text); i++) {
         msg[i] = `${i + 1}.台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
@@ -71,8 +63,19 @@ bot.on('message', async (event) => {
         }
       }
     } else {
-      msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?'
+      msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?\n或是到 經濟部國際貿易局 經貿資訊網查詢：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
       event.reply(msg)
+    }
+
+    // 國家全部
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].PageSummary.includes(event.message.text)) {
+        msg[i] = `${i + 1}.台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
+      }
+      if (i === data.length - 1) {
+        msg[i] = '消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
+        event.reply(msg)
+      }
     }
 
     console.log(msg)
@@ -80,6 +83,7 @@ bot.on('message', async (event) => {
     msg[0] = '發生錯誤!'
     event.reply(msg)
   }
+  // event.reply(msg)
 })
 
 // 在 port 啟動， '/' 為根目錄
@@ -97,6 +101,6 @@ bot.listen('/', process.env.PORT, () => {
 // 今日
 // 今日指定篇數 ()
 // 最新3篇(N3)
-// 區域今天全部 (歐洲)
+// 區域今天全部 (國家/歐洲)
 // 國家7天全部 (越南)
 // 國家幾天內 (韓國/3d)
