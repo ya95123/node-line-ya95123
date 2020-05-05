@@ -34,13 +34,12 @@ const delDot = (str) => {
 const delT = (str) => {
   return str.replace(/T/g, ' ')
 }
-let msg = []
 
 // 當收到訊息時
 bot.on('message', async (event) => {
   // 抓API回復
   // TODO 1.打出國家名稱/數量，跳出該國經濟新聞(篇數)(看能不能分段傳) 2.今日最新消息 3.圖文按鈕(歐洲/美洲/中東/亞洲)
-  msg = []
+  let msg = []
   // let msgError = ''
   const msgTodayAll = ''
   const msgTodayNum = ''
@@ -67,10 +66,10 @@ bot.on('message', async (event) => {
     if (event.message.text === '新3' || event.message.text === '3') {
       for (let i = 0; i < 3; i++) {
         msg[i] = `${i + 1})台灣時間：${delT(data[i].PagePublishTime)}\n地區：${delDot(data[i].PageSummary)}\n⭐ 近期消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[i].PageContent)}\n`
-        event.reply(msg[i])
+        // event.reply(msg[i])
         if (i === 2) {
           msg = `${i + 1})台灣時間：${delT(data[i].PagePublishTime)}\n地區：${delDot(data[i].PageSummary)}\n⭐ 近期消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[i].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-          event.reply(msg[i])
+          event.reply([msg[0]], [msg[1]], [msg[2]])
         }
       }
     } else {
