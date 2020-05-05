@@ -54,7 +54,7 @@ bot.on('message', async (event) => {
   try {
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
     // 今日全部資訊 (今日)
-    if (event.message === '今日' || event.message === 'today') {
+    if (event.message.text === '今日' || event.message.text === 'today') {
       for (let i = 0; i < data.length; i++) {
         msg += `${i})台灣時間：${delT(data[i].PagePublishTime)}\n地區：${delDot(data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[i].PageContent)}\n`
         if (i === data.length - 1) {
