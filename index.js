@@ -46,34 +46,35 @@ bot.on('message', async (event) => {
   // 抓API回復
   // TODO 1.打出國家名稱/數量，跳出該國經濟新聞(篇數)(看能不能分段傳) 2.今日最新消息 3.圖文按鈕(歐洲/美洲/中東/亞洲)
 
-  const msg = []
-
   // TODO **先測試成功再繼續寫條件式
   try {
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
-    // 今日第幾則
-    for (let i = 0; i < data.length; i++) {
+    const msg = []
+    const date = new Date()
+    if (event.message.text === '今日' || event.message.text === 'today') {
+      // 國家
+      // for (let i = 0; i < data.length; i++) {
+      if (data[i].PagePublishTime.includes(`0${date.getMonth() + 1}`) && data[i].PagePublishTime.includes(`0${date.getDate()}`)) {
+        msg[i] = `${i + 1}.台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
+        event.reply(msg)
+        console.log(msg)
+      }
+      // }
+    } else if (parseInt(event.message.text) <= 5) {
+      // 指定最新幾則(5則以下)
+      for (let i = 0; i < parseInt(event.message.text); i++) {
+        msg[i] = `${i + 1}.台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
 
+        if (i === (parseInt(event.message.text) - 1)) {
+          msg[i] = `${i + 1}.台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+          event.reply(msg)
+        }
+      }
+    } else {
+      msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?'
+      event.reply(msg)
     }
 
-    // // 最新1則
-    // if (event.message.text === 'new' || event.message.text === '1') {
-    //   msg[0] = `台灣時間：${delLine(delT(data[0].PagePublishTime))}\n地區：${delDot(data[0].PageSummary)}\n⭐ 最新消息\n${data[0].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[0].PageContent))}\n消息來源：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-    //   event.reply(msg)
-    // } else if (event.message.text === '最新3則' || event.message.text === '3') {
-    //   // 最新3則
-    //   for (let i = 0; i < 3; i++) {
-    //     msg[i] = `${i + 1}.台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
-
-    //     if (i === 2) {
-    //       msg[2] = `${i + 1}.台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-    //       event.reply(msg)
-    //     }
-    //   }
-    // } else {
-    //   msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?'
-    //   event.reply(msg)
-    // }
     console.log(msg)
   } catch (error) {
     msg[0] = '發生錯誤!'
@@ -93,21 +94,9 @@ bot.listen('/', process.env.PORT, () => {
 //   }
 // })
 
-// let msgError = ''
-// const msgTodayAll = ''
-// const msgTodayNum = ''
-// const msgAreaAll = ''
-// const msgAreaDay = ''
-// const msgAssignAll = ''
-// const msgAssignDay = ''
-// const msg7All = ''
-// const msgDayAll = ''
-
-// 最新3篇
-// 今日指定篇數 (今日/3)
-// 區域7天全部 (亞太)
-// 區域幾天內 (歐洲/3)
+// 今日
+// 今日指定篇數 ()
+// 最新3篇(N3)
+// 區域今天全部 (歐洲)
 // 國家7天全部 (越南)
-// 國家幾天內 (韓國/3)
-// 7天全部 (all)
-// 幾天內 (all/3)
+// 國家幾天內 (韓國/3d)
