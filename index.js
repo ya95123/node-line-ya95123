@@ -54,24 +54,24 @@ bot.on('message', async (event) => {
   try {
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
     // 今日全部資訊 (今日)
-    if (event.message.text === '今日' || event.message.text === 'today') {
-      for (let i = 0; i < data.length; i++) {
-        msg += `${i})台灣時間：${delT(data[i].PagePublishTime)}\n地區：${delDot(data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[i].PageContent)}\n`
-        if (i === data.length - 1) {
-          msg += `${i})台灣時間：${delT(data[i].PagePublishTime)}\n地區：${delDot(data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[i].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-          // event.reply(msgTodayAll)
-        }
+    // if (event.message.text === '今日' || event.message.text === 'today') {
+    for (let i = 0; i < data.length; i++) {
+      msg += `${i + 1})台灣時間：${delT(data[i].PagePublishTime)}\n地區：${delDot(data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[i].PageContent)}\n`
+      if (i === data.length - 1) {
+        msg += `${i + 1})台灣時間：${delT(data[i].PagePublishTime)}\n地區：${delDot(data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[i].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+        // event.reply(msgTodayAll)
       }
-      // 今日指定篇數 (今日/3)
-      // 區域7天全部 (亞太)
-      // 區域幾天內 (歐洲/3)
-      // 國家7天全部 (越南)
-      // 國家幾天內 (韓國/3)
-      // 7天全部 (all)
-      // 幾天內 (all/3)
-    } else {
-      msg = `台灣時間：${delT(data[0].PagePublishTime)}\n地區：${delDot(data[0].PageSummary)}\n⭐ 近期消息 ⭐\n${data[0].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[0].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
     }
+    // 今日指定篇數 (今日/3)
+    // 區域7天全部 (亞太)
+    // 區域幾天內 (歐洲/3)
+    // 國家7天全部 (越南)
+    // 國家幾天內 (韓國/3)
+    // 7天全部 (all)
+    // 幾天內 (all/3)
+    // } else {
+    //   msg = `台灣時間：${delT(data[0].PagePublishTime)}\n地區：${delDot(data[0].PageSummary)}\n⭐ 近期消息 ⭐\n${data[0].PageTitle}\n\n📨 主要內容\n${delHtmlTag(data[0].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+    // }
   } catch (error) {
     msg = '目前沒有資訊'
   }
