@@ -34,12 +34,13 @@ const delDot = (str) => {
 const delT = (str) => {
   return str.replace(/T/g, ' ')
 }
+let msg = []
 
 // 當收到訊息時
 bot.on('message', async (event) => {
   // 抓API回復
   // TODO 1.打出國家名稱/數量，跳出該國經濟新聞(篇數)(看能不能分段傳) 2.今日最新消息 3.圖文按鈕(歐洲/美洲/中東/亞洲)
-  let msg = []
+  msg = []
   // let msgError = ''
   const msgTodayAll = ''
   const msgTodayNum = ''
