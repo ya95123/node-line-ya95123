@@ -40,6 +40,8 @@ const delT = (str) => {
 const delLine = (str) => {
   return str.replace(/-/g, '/')
 }
+// msg 回傳訊息
+let msg = []
 
 // 當收到訊息時
 bot.on('message', async (event) => {
@@ -49,7 +51,7 @@ bot.on('message', async (event) => {
   // TODO **先測試成功再繼續寫條件式
   try {
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
-    const msg = []
+    // const msg = []
     // const date = new Date()
 
     if (parseInt(event.message.text) <= 5) {
@@ -80,7 +82,7 @@ bot.on('message', async (event) => {
 
     console.log(msg)
   } catch (error) {
-    msg[0] = '發生錯誤!'
+    msg = '發生錯誤!'
     event.reply(msg)
   }
   // event.reply(msg)
