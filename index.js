@@ -41,6 +41,8 @@ const delLine = (str) => {
   return str.replace(/-/g, '/')
 }
 
+const msgE = '發生錯誤！'
+
 // 當收到訊息時
 bot.on('message', async (event) => {
   // 抓API回復
@@ -81,8 +83,8 @@ bot.on('message', async (event) => {
 
     console.log(msg)
   } catch (error) {
-    msg = '發生錯誤!'
-    event.reply(msg)
+    // msg = '發生錯誤!'
+    event.reply(msgE)
   }
   // event.reply(msg)
 })
