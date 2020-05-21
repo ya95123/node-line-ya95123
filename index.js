@@ -24,6 +24,7 @@ const bot = linebot({
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
 })
 
+// * api 內文整理
 // 正則去掉所有的html標記
 const delHtmlTag = (str) => {
   return str.replace(/<[^>]+>/g, '')
@@ -40,15 +41,28 @@ const delT = (str) => {
 const delLine = (str) => {
   return str.replace(/-/g, '/')
 }
+// * 訊息接收整理
+// 最新幾則
+const news = (str) => {
+  return str.replace(/n/g, '')
+}
+// 第幾則
+const order = (str) => {
+  return str.replace(/s/g, '')
+}
+// 區間數量
+const dash = (str) => {
+  return str.replace(/-/g, '')
+}
 
 const msgE = '發生錯誤！'
 
 // 當收到訊息時
 bot.on('message', async (event) => {
   // TODO 圖文按鈕(歐洲/美洲/中東/亞洲)
-  // 1.最新3篇(n3/N3) 正則可以修改 n1 n2 n3...
-  // 2.指定看第幾篇 () ex. s1 s2 s3 s4...
-  // 3.指定幾到幾篇(區間最多為五) 1-5
+  // TODO 1.最新3篇(n3/N3) 正則可以修改 n1 n2 n3...
+  // TODO 2.指定看第幾篇 () ex. s1 s2 s3 s4...
+  // TODO 3.指定幾到幾篇(區間最多為五) 1-5
   // 4.區域全部 (國家/歐洲) "把國家的抓下來JSON抓下來丟進 新陣列裡，陣列裡就有全部該國的資料，msg 若使用者只輸入 國家名，只丟出該國前三則新聞，若沒有資訊，則msg=7天內僅有上述資訊，
   // -韓國? msg='韓國共有幾則消息'
   // -韓國(n3/N3) 或 韓國 最新三篇
