@@ -11,8 +11,13 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <script>
+    // * api 內文整理
+    // 正則去掉所有的html標記
     const delHtmlTag = (str) => {
       return str.replace(/<[^>]+>/g, '')
+    }
+    const delSpace = (str) => {
+      return str.replace(/&nbsp;/g, '')
     }
     const delDot = (str) => {
       return str.replace(/,/g, ' ')
@@ -20,8 +25,32 @@
     const delT = (str) => {
       return str.replace(/T/g, ' ')
     }
+    const delLine = (str) => {
+      return str.replace(/-/g, '/')
+    }
+    // * 訊息接收整理
+    // 最新幾則
+    const news = (str) => {
+      return str.replace(/n/g, '')
+    }
+    // 第幾則
+    const order = (str) => {
+      return str.replace(/s/g, '')
+    }
+    // 區間數量
+    const dash = (str) => {
+      return str.replace(/~/g, '')
+    }
 
+    const msgE = '程式發生錯誤！'
+
+    // TODO 圖文按鈕(歐洲/美洲/中東/亞洲)
+    // TODO 1.最新3篇(n3/N3) 正則可以修改 n1 n2 n3...
+    // TODO 2.指定看第幾篇 () ex. s1 s2 s3 s4...
+    // TODO 3.指定幾到幾篇(區間最多為五) 1-5
     const test = async () => {
+      // use 為使用者訊息
+      let use = '';
       let msg = []
       let date = new Date();
       try {
@@ -31,23 +60,48 @@
         console.log(test);
         console.log(test.data[1].PageTitle);
         console.log(test.data.length);
-        console.log(msg);
         console.log(date);
         console.log(`${date.getMonth() + 1}-${date.getDate()}`);
 
+        // 最新三篇
+        use = 'n66';
+        // 正則完是數字
+        if (!isNaN(news(use)) && parseInt(news(use)) <= 5) {
+          for (let i = 0; i < news(use); i++) {
+            msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}<hr>`
+            document.write(msg[i]);
+          }
+        }
+        else if (!isNaN(news(use)) && parseInt(news(use)) > 5) {
+          msg[0] = '最新消息做多只能發送前五則唷😊！\n想往後看，可以使用區間打法(一次最多也是5則訊息)，例如：6-10'
+          document.write(msg[0]);
+        }
+        else {
+          msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?\n或是到 經濟部國際貿易局 經貿資訊網查詢：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
+          document.write(msg[0]);
+        }
+
+
+
+
+
+
+
+
+
+
+        // TODO 時間
         // msg[i] = `${i + 1})台灣時間：${delT(test.data[i].PagePublishTime)}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(test.data[i].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
         // }
 
-        for (let i = 0; i < test.data.length; i++) {
-          // console.log(msg);
-          // if (i === 2) {
-          if (test.data[i].PagePublishTime.includes(`5-5`)) {
-            msg[i] = (i + 1)
-          }
-          console.log(msg[i]);
+        // 抓日期成功了唷!!!
+        // for (let i = 0; i < test.data.length; i++) {
+        //   if (test.data[i].PagePublishTime.includes(`5-21`)) {
+        //     msg[i] = test.data[i].PageTitle + test.data[i].PagePublishTime
+        //   }
 
-          document.write(`${msg[i]}<hr>`);
-        }
+        //   document.write(`${msg[i]}<hr>`);
+        // }
 
 
       } catch (error) {
@@ -55,6 +109,7 @@
       }
       // event.reply(msg)
     }
+    // 呼叫test
     test();
   </script>
 </body>

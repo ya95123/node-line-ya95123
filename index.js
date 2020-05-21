@@ -52,10 +52,11 @@ const order = (str) => {
 }
 // 區間數量
 const dash = (str) => {
-  return str.replace(/-/g, '')
+  return str.replace(/~/g, '')
 }
+// 寫法：正則後是否為數字，是的話進入該判斷程式
 
-const msgE = '發生錯誤！'
+const msgE = '程式發生錯誤！'
 
 // 當收到訊息時
 bot.on('message', async (event) => {
