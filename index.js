@@ -24,7 +24,7 @@ const bot = linebot({
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
 })
 
-// 正則去掉所有的html标记
+// 正則去掉所有的html標記
 const delHtmlTag = (str) => {
   return str.replace(/<[^>]+>/g, '')
 }
@@ -45,11 +45,18 @@ const msgE = '發生錯誤！'
 
 // 當收到訊息時
 bot.on('message', async (event) => {
-  // 抓API回復
-  // TODO 1.打出國家名稱/數量，跳出該國經濟新聞(篇數)(看能不能分段傳) 2.今日最新消息 3.圖文按鈕(歐洲/美洲/中東/亞洲)
+  // TODO 圖文按鈕(歐洲/美洲/中東/亞洲)
+  // 1.最新3篇(n3/N3) 正則可以修改
+  // 2.指定看第幾篇 () ex. 1s 2s 3s 4s...
+  // 3.指定幾到幾篇(區間最多為五) 1-5
+  // 4.區域全部 (國家/歐洲) "把國家的抓下來JSON抓下來丟進 新陣列裡，陣列裡就有全部該國的資料，msg 若使用者只輸入 國家名，只丟出該國前三則新聞，若沒有資訊，則msg=7天內僅有上述資訊，
+  // -韓國? msg='韓國共有幾則消息'
+  // -韓國(n3/N3) 或 韓國 最新三篇
+  // -韓國(1s 2s 3s...)
+  // 5.改做 推播3則 7:00 12:30 )
 
-  // TODO **先測試成功再繼續寫條件式
   try {
+    // 抓API回復
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
     // msg 回傳訊息，用陣列是可以分開對話框訊息
     const msg = []
@@ -99,9 +106,3 @@ bot.listen('/', process.env.PORT, () => {
 //     event.reply(event.message.text)
 //   }
 // })
-
-// 今日 x 太多不做 -> (改做推播 7:00 12:30)
-// 指定看第幾篇 () ex. 1s 2s 3s 4s...
-// 最新3篇(n3/N3)
-// 區域今天全部 (國家/歐洲) "把國家的抓下來JSON抓下來丟進 新陣列裡，陣列裡就有全部該國的資料，msg 若使用者只輸入 國家名，只丟出該國前三則新聞，若沒有資訊，則msg=7天內僅有上述資訊，
-// 其他例如輸入：美國 1-5、6-10 (若超過資訊時，7天內僅有上述資訊)
