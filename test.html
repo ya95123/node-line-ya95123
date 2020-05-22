@@ -33,7 +33,7 @@
     const news = (str) => {
       return str.replace(/n|N/g, '')
     }
-    // 第幾則
+    // 第幾則、指定國家/洲
     const order = (str) => {
       return str.replace(/s|S/g, '')
     }
@@ -41,14 +41,12 @@
     const interval = (str) => {
       return str.replace(/-/g, '')
     }
+    // 全域搜尋
+    const all = (str) => {
+      return str.replace(/g|G/g, '')
+    }
 
-    // const inStart = (str) => {
-    //   return str.replace(/-....../g, '')
-    // }
-
-    // const inEnd = (str) => {
-    //   return str.replace(/.-/g, '')
-    // }
+    console.log(all('g韓國'));
 
     const msgE = '程式發生錯誤！'
 
@@ -72,7 +70,7 @@
         console.log(`${date.getMonth() + 1}-${date.getDate()}`);
 
         // 使用者訊息
-        use = 's韓國'
+        use = 'g韓國'
         console.log(!isNaN(order(use)))
         // 最新N篇 OK
         // 正則完是數字 
@@ -120,7 +118,7 @@
             }
           }
         }
-        // 呼叫目錄 OK
+        // 呼叫目錄 c OK
         else if (use === '目錄' || use === 'c' || use === 'C') {
           for (let i = 0; i < test.data.length; i++) {
             msg[0] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
@@ -130,8 +128,8 @@
             }
           }
         }
-        // 找國家、洲目錄 OK
-        else if (isNaN(order(use))) {
+        // 找國家、洲目錄 s國家/洲/地區 OK
+        else if (isNaN(order(use)) && use.includes('s') || use.includes('S')) {
           for (let i = 0; i < test.data.length; i++) {
             // 確認國家
             msg[0] = `📍 ${order(use)}<br>`
@@ -140,6 +138,21 @@
             }
             if (i === test.data.length - 1) {
               if (test.data[i].PageSummary.includes(order(use))) {
+                msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+              }
+              document.write(msg)
+            }
+          }
+        }
+        // 找國家、洲相關目錄(標題&國家皆搜尋,全域搜尋) g ok
+        else if (isNaN(all(use)) && use.includes('g') || use.includes('G')) {
+          for (let i = 0; i < test.data.length; i++) {
+            msg[0] = `有關 🌎 ${all(use)} 的所有資訊<br>`
+            if (test.data[i].PageTitle.includes(all(use))) {
+              msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+            }
+            if (i === test.data.length - 1) {
+              if (test.data[i].PageTitle.includes(all(use))) {
                 msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
               }
               document.write(msg)
