@@ -59,7 +59,7 @@
     const test = async () => {
       // use 為使用者訊息
       let use = ''
-      let msg = []
+      let msg = ['', '']
       let date = new Date()
       try {
         let test = axios.get('https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true');
@@ -72,7 +72,7 @@
         console.log(`${date.getMonth() + 1}-${date.getDate()}`);
 
         // 使用者訊息
-        use = 'C'
+        use = 's韓國'
         console.log(!isNaN(order(use)))
         // 最新N篇 OK
         // 正則完是數字 
@@ -120,13 +120,28 @@
             }
           }
         }
-        // 呼叫目錄 
-        // TODO 第一個會有 undefined 出現，之後解決
+        // 呼叫目錄 OK
         else if (use === '目錄' || use === 'c' || use === 'C') {
           for (let i = 0; i < test.data.length; i++) {
             msg[0] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
             if (i === test.data.length - 1) {
               msg[0] += `s${i + 1}：${test.data[i].PageTitle}`
+              document.write(msg)
+            }
+          }
+        }
+        // 找國家、洲目錄 OK
+        else if (isNaN(order(use))) {
+          for (let i = 0; i < test.data.length; i++) {
+            // 確認國家
+            msg[0] = `📍 ${order(use)}<br>`
+            if (test.data[i].PageSummary.includes(order(use))) {
+              msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+            }
+            if (i === test.data.length - 1) {
+              if (test.data[i].PageSummary.includes(order(use))) {
+                msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+              }
               document.write(msg)
             }
           }
@@ -149,6 +164,7 @@
         // msg[i] = `${i + 1})台灣時間：${delT(test.data[i].PagePublishTime)}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(test.data[i].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
         // }
 
+        // 正則5.21 .去掉是數字 進入功能 .轉- 找輸入的日期
         // 抓日期成功了唷!!!
         // for (let i = 0; i < test.data.length; i++) {
         //   if (test.data[i].PagePublishTime.includes(`5-21`)) {
