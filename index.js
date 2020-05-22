@@ -52,7 +52,7 @@ const order = (str) => {
 }
 // 區間數量
 const dash = (str) => {
-  return str.replace(/~/g, '')
+  return str.replace(/-/g, '')
 }
 // 寫法：正則後是否為數字，是的話進入該判斷程式
 
