@@ -45,6 +45,14 @@
     const all = (str) => {
       return str.replace(/g|G/g, '')
     }
+    // 日期判斷用
+    const dayif = (str) => {
+      return str.replace(/./g, '')
+    }
+    // 日期目錄 . -> - 抓相同日期用
+    const day = (str) => {
+      return str.replace(/./g, '-')
+    }
 
     console.log(all('g韓國'));
 
@@ -70,7 +78,7 @@
         console.log(`${date.getMonth() + 1}-${date.getDate()}`);
 
         // 使用者訊息
-        use = 'g韓國'
+        use = '?'
         console.log(!isNaN(order(use)))
         // 最新N篇 OK
         // 正則完是數字 
@@ -85,7 +93,7 @@
         }
         // 最新N篇，數字超過5(太多) OK
         else if (!isNaN(news(use)) && (news(use)) > 5) {
-          msg[0] = '最新消息做多只能發送前五則唷😊！\n想往後看，可以使用區間打法(一次最多也是5則訊息)，例如：6-10'
+          msg[0] = '最新消息做多只能發送前五則唷😊！\n想往後看，可以使用區間打法(一次最多也是5則訊息)，例如：6-10\n\n若是要指定第幾則消息，請在數字前面加上"s"唷，例如：s20'
           document.write(msg[0])
         }
         // 看第S篇 OK
@@ -103,18 +111,24 @@
           // 把 use 轉成陣列
           use = use.split('-')
           console.log(`${use[0]}-${use[1]}`);
-          if (use[1] < use[0]) {
+          if (use[1] - use[0] < 0) {
             msg[0] = `第二個數字要比第一個數字大啦～ 不然我不會找啦🤭，例如:11-15`
             document.write(msg)
           }
-          // count 為 設定 msg 的排序
-          let count = -1
-          for (let i = use[0] - 1; i < use[1]; i++) {
-            count = count + 1
-            msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}<hr>`
-            if (i === use[1] - 1) {
-              msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-              document.write(`${msg}<br>我沒有重複跑就成功了!`)
+          if (use[1] - use[0] > 4) {
+            msg[0] = '最多只能發送五則訊息唷😊！\n例如：6-10'
+            document.write(msg)
+          }
+          else {
+            // count 為 設定 msg 的排序
+            let count = -1
+            for (let i = use[0] - 1; i < use[1]; i++) {
+              count = count + 1
+              msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}<hr>`
+              if (i === use[1] - 1) {
+                msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+                document.write(`${msg}<br>我沒有重複跑就成功了!`)
+              }
             }
           }
         }
@@ -146,18 +160,37 @@
         }
         // 找國家、洲相關目錄(標題&國家皆搜尋,全域搜尋) g ok
         else if (isNaN(all(use)) && use.includes('g') || use.includes('G')) {
+          msg[0] = `有關 🌎 ${all(use)} 的所有資訊<br>`
           for (let i = 0; i < test.data.length; i++) {
-            msg[0] = `有關 🌎 ${all(use)} 的所有資訊<br>`
-            if (test.data[i].PageTitle.includes(all(use))) {
+            if (test.data[i].PageTitle.includes(all(use)) || test.data[i].PageSummary.includes(all(use))) {
               msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
             }
             if (i === test.data.length - 1) {
-              if (test.data[i].PageTitle.includes(all(use))) {
+              if (test.data[i].PageTitle.includes(all(use)) || test.data[i].PageSummary.includes(all(use))) {
                 msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
               }
               document.write(msg)
             }
           }
+        }
+        // TODO BUG 純打字會跳過來 先不抓時間
+        // else if (!isNaN(dayif(use))) {
+        //   msg[0] = `🕰 ${use}`
+        //   for (let i = 0; i < test.data.length; i++) {
+        //     if (test.data[i].PagePublishTime.includes(day(use))) {
+        //       msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+        //     }
+        //     if (i === test.data.length - 1) {
+        //       if (test.data[i].PagePublishTime.includes(day(use))) {
+        //         msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+        //       }
+        //       document.write(msg)
+        //     }
+        //   }
+        // }
+        // 功能
+        else if (use === '?' || use === '功能' || use === 'f') {
+          document.write(`等我做...`)
         }
         else {
           msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?\n或是到 經濟部國際貿易局 經貿資訊網查詢：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'

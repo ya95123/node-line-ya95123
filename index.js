@@ -44,17 +44,20 @@ const delLine = (str) => {
 // * 訊息接收整理
 // 最新幾則
 const news = (str) => {
-  return str.replace(/n/g, '')
+  return str.replace(/n|N/g, '')
 }
-// 第幾則
+// 第幾則、指定國家/洲
 const order = (str) => {
-  return str.replace(/s/g, '')
+  return str.replace(/s|S/g, '')
 }
 // 區間數量
-const dash = (str) => {
+const interval = (str) => {
   return str.replace(/-/g, '')
 }
-// 寫法：正則後是否為數字，是的話進入該判斷程式
+// 全域搜尋
+const all = (str) => {
+  return str.replace(/g|G/g, '')
+}
 
 const msgE = '程式發生錯誤！'
 
