@@ -49,23 +49,18 @@
     // const inEnd = (str) => {
     //   return str.replace(/.-/g, '')
     // }
-    // TODO 文字轉陣列！！！　↓即可提取 讚讚讚
-    let a = '306-308';
-    let useA = a.split('-');
-
-    console.log(useA);
 
     const msgE = '程式發生錯誤！'
 
     // TODO 圖文按鈕(歐洲/美洲/中東/亞洲)
     // TODO 1.最新3篇(n3/N3) 正則可以修改 n1 n2 n3...OK
     // TODO 2.指定看第幾篇 () ex. s1 s2 s3 s4...OK
-    // TODO 3.指定幾到幾篇(區間最多為五) 1-5
+    // TODO 3.指定幾到幾篇(區間最多為五) 1-5 OK
     const test = async () => {
       // use 為使用者訊息
-      let use = '';
+      let use = ''
       let msg = []
-      let date = new Date();
+      let date = new Date()
       try {
         let test = axios.get('https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true');
 
@@ -77,8 +72,8 @@
         console.log(`${date.getMonth() + 1}-${date.getDate()}`);
 
         // 使用者訊息
-        use = '1-4';
-        console.log(!isNaN(order(use)));
+        use = '48-20'
+        console.log(!isNaN(order(use)))
         // 最新N篇 OK
         // 正則完是數字 
         if (!isNaN(news(use)) && (news(use)) >= 1 && (news(use)) <= 5) {
@@ -86,41 +81,42 @@
             msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}<hr>`
             if (i === ((news(use)) - 1)) {
               msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-              document.write(msg);
+              document.write(msg)
             }
           }
         }
         // 最新N篇，數字超過5(太多) OK
         else if (!isNaN(news(use)) && (news(use)) > 5) {
           msg[0] = '最新消息做多只能發送前五則唷😊！\n想往後看，可以使用區間打法(一次最多也是5則訊息)，例如：6-10'
-          document.write(msg[0]);
+          document.write(msg[0])
         }
         // 看第S篇 OK
         else if (!isNaN(order(use)) && order(use) <= test.data.length) {
           msg[0] = `第 ${order(use)} 則\n台灣時間：${delLine(delT(test.data[order(use) - 1].PagePublishTime))}\n地區：${delDot(test.data[order(use) - 1].PageSummary)}\n⭐ 最新消息\n${test.data[order(use) - 1].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[order(use) - 1].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-          document.write(msg[0]);
+          document.write(msg[0])
         }
         // 看第S篇 超過資料範圍 OK
         else if (!isNaN(order(use)) && order(use) > test.data.length || order(use) < 1) {
           msg[0] = `7 天內目前共有 ${test.data.length} 則消息唷，請再次輸入於範圍內搜尋🌞，例如：s${test.data.length}`
-          document.write(msg[0]);
+          document.write(msg[0])
         }
-        // 指定區間
+        // 指定區間 - OK
         else if (!isNaN(interval(use))) {
           // 把 use 轉成陣列
-          use = use.split('-');
-          // j 為 設定 msg 排序
-          // document.write(use[0], use[1]);
-          // use = [6, 10] -> 迴圈從 i = 5 開始，跑到 i = 9(10 - 1) 結束
-          // TODO 訊息內容便還沒改完 增加變數=複雜的內容
-          for (i = use[0] - 1; i < use[1]; i++) {
-            for (let j = 0; j < (use[1] - use[0]); j++) {
-              msg[j] = `第 ${use[0] - 1 + (j + 1)} 則\n台灣時間：${delLine(delT(test.data[use[0] - 1 + (j + 1)].PagePublishTime))}\n地區：${delDot(test.data[use[0] - 1 + (j + 1)].PageSummary)}\n⭐ 最新消息\n${test.data[use[0] - 1 + (j + 1)].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[use[0] - 1 + (j + 1)].PageContent))}<hr>`
-
-              if (i === (use[1] - 1)) {
-                msg[j] = `第 ${use[0] - 1 + (j + 1)} 則\n台灣時間：${delLine(delT(test.data[use[0] - 1 + (j + 1)].PagePublishTime))}\n地區：${delDot(test.data[use[0] - 1 + (j + 1)].PageSummary)}\n⭐ 最新消息\n${test.data[use[0] - 1 + (j + 1)].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[use[0] - 1 + (j + 1)].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-                document.write(msg);
-              }
+          use = use.split('-')
+          console.log(`${use[0]}-${use[1]}`);
+          if (use[1] < use[0]) {
+            msg[0] = `第二個數字要比第一個數字大啦～ 不然我不會找啦🤭，例如:11-15`
+            document.write(msg)
+          }
+          // count 為 設定 msg 的排序
+          let count = -1
+          for (let i = use[0] - 1; i < use[1]; i++) {
+            count = count + 1
+            msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}<hr>`
+            if (i === use[1] - 1) {
+              msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+              document.write(`${msg}<br>我沒有重複跑就成功了!`)
             }
           }
         }
