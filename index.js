@@ -145,66 +145,67 @@ bot.on('message', async (event) => {
       if (number(use) > 4 || number(use) < 1) {
         msg[0] = '💡超出目錄的搜尋範圍囉，目錄共分為1-4區，例如：c2'
         event.reply(msg[0])
-      }
-      // 總數分四段，且無條件捨去
-      const divide4 = Math.floor((data.length / 4))
-      for (let i = 0; i < data.length; i++) {
-        // 第一區目錄
-        if (i < divide4) {
-          if (i === 0) {
-            msg[0] = `第 1 區目錄 📚1 - ${divide4}\n`
+      } else {
+        // 總數分四段，且無條件捨去
+        const divide4 = Math.floor((data.length / 4))
+        for (let i = 0; i < data.length; i++) {
+          // 第一區目錄
+          if (i < divide4) {
+            if (i === 0) {
+              msg[0] = `第 1 區目錄 📚1 - ${divide4}\n`
+              msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
+            } else if (i === divide4 - 1) {
+              msg[0] += `s${i + 1}：${data[i].PageTitle}`
+              if (use.includes('1')) {
+                event.reply(msg[0])
+                break
+              }
+            }
             msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
-          } else if (i === divide4 - 1) {
-            msg[0] += `s${i + 1}：${data[i].PageTitle}`
-            if (use.includes('1')) {
-              event.reply(msg[0])
-              break
-            }
           }
-          msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
-        }
-        // 第二區目錄
-        if (i >= divide4 && i < (divide4 * 2)) {
-          if (i === divide4) {
-            msg[1] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}\n`
+          // 第二區目錄
+          if (i >= divide4 && i < (divide4 * 2)) {
+            if (i === divide4) {
+              msg[1] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}\n`
+              msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
+            } else if (i === (divide4 * 2) - 1) {
+              msg[1] += `s${i + 1}：${data[i].PageTitle}`
+              if (use.includes('2')) {
+                event.reply(msg[1])
+                break
+              }
+            }
             msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
-          } else if (i === (divide4 * 2) - 1) {
-            msg[1] += `s${i + 1}：${data[i].PageTitle}`
-            if (use.includes('2')) {
-              event.reply(msg[1])
-              break
-            }
           }
-          msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
-        }
-        // 第三區目錄
-        if (i >= (divide4 * 2) && i < (divide4 * 3)) {
-          if (i === (divide4 * 2)) {
-            msg[2] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}\n`
+          // 第三區目錄
+          if (i >= (divide4 * 2) && i < (divide4 * 3)) {
+            if (i === (divide4 * 2)) {
+              msg[2] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}\n`
+              msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
+            } else if (i === (divide4 * 3) - 1) {
+              msg[2] += `s${i + 1}：${data[i].PageTitle}`
+              if (use.includes('3')) {
+                event.reply(msg[2])
+                break
+              }
+            }
             msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
-          } else if (i === (divide4 * 3) - 1) {
-            msg[2] += `s${i + 1}：${data[i].PageTitle}`
-            if (use.includes('3')) {
-              event.reply(msg[2])
-              break
-            }
           }
-          msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
-        }
-        // 第四區目錄 要跑到(總長度-1)
-        if (i >= (divide4 * 3) && i < data.length) {
-          if (i === (divide4 * 3)) {
-            msg[3] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}\n`
+          // 第四區目錄 要跑到(總長度-1)
+          if (i >= (divide4 * 3) && i < data.length) {
+            if (i === (divide4 * 3)) {
+              msg[3] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}\n`
+              msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
+            } else if (i === data.length - 1) {
+              msg[3] += `s${i + 1}：${data[i].PageTitle}`
+              event.reply(msg)
+              if (use.includes('4')) {
+                event.reply(msg[3])
+                break
+              }
+            }
             msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
-          } else if (i === data.length - 1) {
-            msg[3] += `s${i + 1}：${data[i].PageTitle}`
-            event.reply(msg)
-            if (use.includes('4')) {
-              event.reply(msg[3])
-              break
-            }
           }
-          msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
         }
       }
     } else if (isNaN(order(use)) && (use.includes('s') || use.includes('S'))) {
