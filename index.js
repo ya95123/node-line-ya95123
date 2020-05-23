@@ -142,7 +142,7 @@ bot.on('message', async (event) => {
     } else if ((use.includes('目錄') || use.includes('c') || use.includes('C'))) {
       // *呼叫目錄 c OK
       // 超出目錄範圍
-      if (number(use) > 4 || number(use) < 1) {
+      if (number(use) > 4 || number(use) === 0) {
         msg[0] = '💡超出目錄的搜尋範圍囉，目錄共分為1-4區，例如：c2'
         event.reply(msg[0])
       } else {
