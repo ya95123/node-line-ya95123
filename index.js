@@ -8,7 +8,7 @@ import rp from 'request-promise'
 import schedule from 'node-schedule'
 // 引用 import 套件
 import cheerio from 'cheerio'
-import { LineBot } from 'linebot/lib/linebot'
+// import { LineBot } from 'linebot/lib/linebot'
 // cheerio 用法
 // const $ = cheerio.load('<p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="background-color:white">馬來西亞經濟學者咸認為，馬國雖有效抑制新型冠狀病毒疫情擴散')
 // console.log($('p').text())
