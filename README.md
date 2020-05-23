@@ -1,12 +1,12 @@
 # 地球村民經濟報
-自稱：本地球村民 <br>
-好友 ID ：@535lslfv <br>
-![好友QR code](https://i.imgur.com/TUozfXD.png) <br>
-公開資料來源：[全球商機資訊](https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true) <br>
-公開資料網站：[經濟部國際貿易局 經貿資訊網](https://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4) <br>
-**資料儲存皆為近7日** <br><br>
+#### 自稱：本地球村民 
+#### 好友 ID ：@535lslfv 
+![好友QR code](https://i.imgur.com/TUozfXD.png) 
+#### 公開資料來源：[全球商機資訊](https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true) 
+#### 公開資料網站：[經濟部國際貿易局 經貿資訊網](https://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4) 
+**資料儲存皆為近7日** <br>
  
- 內容：主要為分享世界各國經濟資訊，每天來點地球彼端的新知，也關心遠方親戚朋友的國家經濟狀況吧😉！ 
+ 內容：主要為分享世界各國經濟資訊，每天來點地球彼端的新知，也關心遠方親戚朋友的國家經濟狀況吧😉！ <br>
  (只能查詢其他國家，查不了台灣唷，想看台灣，請走跳台灣新聞🤠) <br>
   
  🧰 功能(指令)
