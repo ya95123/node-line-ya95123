@@ -4,6 +4,8 @@ import linebot from 'linebot'
 import dotenv from 'dotenv'
 // 引用 request 套件
 import rp from 'request-promise'
+// 引用 Node-Schedule 套件
+import schedule from 'node-schedule'
 // 引用 import 套件
 import cheerio from 'cheerio'
 // cheerio 用法
@@ -42,10 +44,6 @@ const delLine = (str) => {
   return str.replace(/-/g, '/')
 }
 // * 訊息接收整理
-// 最新幾則
-const news = (str) => {
-  return str.replace(/n|N/g, '')
-}
 // 第幾則、指定國家/洲
 const order = (str) => {
   return str.replace(/s|S/g, '')
@@ -71,6 +69,14 @@ const number = (str) => {
   return str.replace(/\D/g, '')
 }
 
+let data = {}
+const getData = () => {
+  data = rp({ uri: 'https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL', json: true })
+}
+// 每 1 分鐘抓資料
+getData()
+schedule.scheduleJob('0 * * * * *', getData())
+
 const msgE = '程式或指令發生錯誤！指令可以輸入 f 查詢唷😊\n若指令確認無誤就是本地球村發生問題啦💦'
 
 // 當收到訊息時
@@ -79,7 +85,7 @@ bot.on('message', async (event) => {
   // TODO 做 推播3則 7:00 12:30
   try {
     // 抓API回復
-    const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+    // const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
     // msg 回傳訊息，用陣列是可以分開對話框訊息
     const msg = ['', '']
     const date = new Date()
