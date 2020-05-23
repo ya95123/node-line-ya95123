@@ -107,14 +107,14 @@ bot.on('message', async (event) => {
       console.log(`${use[0]}-${use[1]}`)
       if ((use[0] - use[1]) > 0) {
         msg[0] = '第二個數字要比第一個數字大啦～ 不然我不會找啦🤭，例如:11-15'
-        event.reply(msg)
+        event.reply(msg[0])
       } else if ((use[1] - use[0]) > 4) {
         msg[0] = '最多只能發送五則消息唷😊！\n例如：6-10'
-        event.reply(msg)
+        event.reply(msg[0])
       } else if (use[0] > data.length || use[1] > data.length || use[0] < 1) {
         // 超過搜尋範圍
         msg[0] = '超出搜尋範圍啦💆‍♂！可以先查看目錄總共有幾則消息唷！\n目錄查詢請輸入 c'
-        event.reply(msg)
+        event.reply(msg[0])
         // 符合條件執行
       } else if ((use[0] - use[1]) < 0) {
         // count 為 設定 msg 的排序
