@@ -66,6 +66,10 @@ const dayif = (str) => {
 const day = (str) => {
   return str.replace(/@/g, '-')
 }
+// 只留下數字
+const number = (str) => {
+  return str.replace(/\D/g, '')
+}
 
 const msgE = '程式或指令發生錯誤！指令可以輸入 f 查詢唷😊\n若指令確認無誤就是本地球村發生問題啦💦'
 
@@ -189,6 +193,9 @@ bot.on('message', async (event) => {
           msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
         }
       }
+    } else if ((use.includes('目錄') || use.includes('c') || use.includes('C')) && (number(use) > 4 || (number(use) < 1))) {
+      msg[0] = '💡超出目錄的搜尋範圍囉，目錄共分為4區，例如：c4'
+      event.reply(msg[0])
     } else if (isNaN(order(use)) && (use.includes('s') || use.includes('S'))) {
       // *找國家、洲目錄 s國家/洲/地區 OK
       for (let i = 0; i < data.length; i++) {
