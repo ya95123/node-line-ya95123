@@ -98,13 +98,8 @@ bot.on('message', async (event) => {
       event.reply(msg[0])
     } else if (!isNaN(order(use)) && (order(use) > data.length || order(use) < 1) && (use.includes('s') || use.includes('S'))) {
       // 看第S篇 超過資料範圍 OK
-      if (order(use) === '0') {
-        msg[0] = '沒有第 0 責的選項唷🌚'
-        event.reply(msg[0])
-      } else {
-        msg[0] = `7 天內目前共有 ${data.length} 則消息唷，請再次輸入於範圍內搜尋🌞，例如：s${data.length}`
-        event.reply(msg[0])
-      }
+      msg[0] = `7 天內目前共有 ${data.length} 則消息唷，請再次輸入於範圍內搜尋🌞，例如：s${data.length}`
+      event.reply(msg[0])
     } else if (!isNaN(interval(use)) && use.includes('-')) {
       // *指定區間 - OK
       // 把 use 轉成陣列
