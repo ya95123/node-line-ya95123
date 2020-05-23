@@ -106,7 +106,7 @@ bot.on('message', async (event) => {
       use = use.split('-')
       console.log(`${use[0]}-${use[1]}`)
       if ((use[0] - use[1]) > 0) {
-        msg[0] = '第二個數字要比第一個數字大啦～ 不然我不會找啦🤭，例如:11-15'
+        msg[0] = '第二個數字要比第一個數字大啦～ 不然 本地球村民 不會找啦🤭，例如:11-15'
         event.reply(msg[0])
       } else if ((use[1] - use[0]) > 4) {
         msg[0] = '最多只能發送五則消息唷😊！\n例如：6-10'
@@ -123,7 +123,7 @@ bot.on('message', async (event) => {
           count = count + 1
           if (i === (use[1] - 1)) {
             msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-            event.reply(`${msg}`)
+            event.reply(msg)
           }
           msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
         }
