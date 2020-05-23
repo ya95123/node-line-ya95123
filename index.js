@@ -67,7 +67,7 @@ const day = (str) => {
   return str.replace(/@/g, '-')
 }
 
-const msgE = '程式發生錯誤！'
+const msgE = '程式或指令發生錯誤！指令可以輸入 f 查詢唷😊\n若指令確認無誤就是本地球村發生問題啦💦'
 
 // 當收到訊息時
 bot.on('message', async (event) => {
@@ -84,7 +84,7 @@ bot.on('message', async (event) => {
     let use = event.message.text
 
     if (use === 'new' || use === 'NEW' || use === 'New') {
-      // *最新3篇
+      // *最新3篇 OK
       for (let i = 0; i < 3; i++) {
         if (i === 2) {
           msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
@@ -98,8 +98,13 @@ bot.on('message', async (event) => {
       event.reply(msg[0])
     } else if (!isNaN(order(use)) && (order(use) > data.length || order(use) < 1) && (use.includes('s') || use.includes('S'))) {
       // 看第S篇 超過資料範圍 OK
-      msg[0] = `7 天內目前共有 ${data.length} 則消息唷，請再次輸入於範圍內搜尋🌞，例如：s${data.length}`
-      event.reply(msg[0])
+      if (order(use) === '0') {
+        msg[0] = '沒有第 0 責的選項唷🌚'
+        event.reply(msg[0])
+      } else {
+        msg[0] = `7 天內目前共有 ${data.length} 則消息唷，請再次輸入於範圍內搜尋🌞，例如：s${data.length}`
+        event.reply(msg[0])
+      }
     } else if (!isNaN(interval(use)) && use.includes('-')) {
       // *指定區間 - OK
       // 把 use 轉成陣列
