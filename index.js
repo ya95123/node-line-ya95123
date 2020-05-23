@@ -143,6 +143,7 @@ bot.on('message', async (event) => {
             msg[1] += `s${i + 1}：${data[i].PageTitle}`
             // event.reply(msg[0])
             // event.reply(msg[4])
+            event.reply(msg[0], msg[1])
           }
           msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
         }
@@ -151,6 +152,7 @@ bot.on('message', async (event) => {
             msg[3] += `s${i + 1}：${data[i].PageTitle}`
             // event.reply(msg[1])
             // event.reply(msg[5])
+            event.reply(msg[2], msg[3])
           }
           msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
         }
@@ -159,6 +161,7 @@ bot.on('message', async (event) => {
             msg[5] += `s${i + 1}：${data[i].PageTitle}`
             // event.reply(msg[2])
             // event.reply(msg[6])
+            event.reply(msg[4], msg[5])
           }
           msg[5] += `s${i + 1}：${data[i].PageTitle}\n`
         }
@@ -167,7 +170,8 @@ bot.on('message', async (event) => {
             msg[7] += `s${i + 1}：${data[i].PageTitle}`
             // event.reply(msg[3])
             // event.reply(msg[7])
-            event.reply(msg)
+            // event.reply(msg)
+            event.reply(msg[6], msg[7])
           }
           msg[7] += `s${i + 1}：${data[i].PageTitle}\n`
         }
