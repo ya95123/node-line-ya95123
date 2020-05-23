@@ -75,12 +75,21 @@ const number = (str) => {
 // const getData =()=>{
 
 // }
+
+// let data = rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+
+// // 每 1 分鐘抓資料
+// const getData = schedule.scheduleJob('30 * * * * *', () => {
+//   data = rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+//   console.log('1分鐘')
+//   console.log(data[0].PagePublishTime)
+// })
 let data = {}
-// 每 1 分鐘抓資料
-const getData = schedule.scheduleJob('55 * * * * *', () => {
-  data = rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
-  console.log('1分鐘')
-})
+const getData = async () => {
+  data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+}
+getData()
+schedule.scheduleJob('55 * * * * *', getData())
 console.log(data)
 // getData()
 // schedule.scheduleJob('0 * * * * *', getData())
