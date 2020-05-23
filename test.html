@@ -54,8 +54,6 @@
       return str.replace(/./g, '-')
     }
 
-    console.log(all('g韓國'));
-
     const msgE = '程式發生錯誤！'
 
     // TODO 圖文按鈕(歐洲/美洲/中東/亞洲)
@@ -78,11 +76,11 @@
         console.log(`${date.getMonth() + 1}-${date.getDate()}`);
 
         // 使用者訊息
-        use = 'S中國'
+        use = 'g非魯'
         console.log(!isNaN(order(use)))
         // 最新N篇 OK
         // 正則完是數字 
-        if (!isNaN(news(use)) && (news(use)) >= 1 && (news(use)) <= 5) {
+        if (!isNaN(news(use)) && (news(use)) >= 1 && (news(use)) <= 5 && use.includes('n') || use.includes('N')) {
           for (let i = 0; i < news(use); i++) {
             msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(test.data[i].PagePublishTime))}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 最新消息\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[i].PageContent))}<hr>`
             if (i === ((news(use)) - 1)) {
@@ -92,22 +90,22 @@
           }
         }
         // 最新N篇，數字超過5(太多) OK
-        else if (!isNaN(news(use)) && (news(use)) > 5) {
+        else if (!isNaN(news(use)) && (news(use)) > 5 && use.includes('n') || use.includes('N')) {
           msg[0] = '最新消息做多只能發送前五則唷😊！\n想往後看，可以使用區間打法(一次最多也是5則訊息)，例如：6-10\n\n若是要指定第幾則消息，請在數字前面加上"s"唷，例如：s20'
           document.write(msg[0])
         }
         // 看第S篇 OK
-        else if (!isNaN(order(use)) && order(use) <= test.data.length) {
+        else if (!isNaN(order(use)) && order(use) <= test.data.length && use.includes('s') || use.includes('S')) {
           msg[0] = `第 ${order(use)} 則\n台灣時間：${delLine(delT(test.data[order(use) - 1].PagePublishTime))}\n地區：${delDot(test.data[order(use) - 1].PageSummary)}\n⭐ 最新消息\n${test.data[order(use) - 1].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(test.data[order(use) - 1].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
           document.write(msg[0])
         }
         // 看第S篇 超過資料範圍 OK
-        else if (!isNaN(order(use)) && order(use) > test.data.length || order(use) < 1) {
+        else if (!isNaN(order(use)) && order(use) > test.data.length || order(use) < 1 && use.includes('s') || use.includes('S')) {
           msg[0] = `7 天內目前共有 ${test.data.length} 則消息唷，請再次輸入於範圍內搜尋🌞，例如：s${test.data.length}`
           document.write(msg[0])
         }
         // 指定區間 - OK
-        else if (!isNaN(interval(use))) {
+        else if (!isNaN(interval(use)) && use.includes('-')) {
           // 把 use 轉成陣列
           use = use.split('-')
           console.log(`${use[0]}-${use[1]}`);
@@ -115,8 +113,13 @@
             msg[0] = `第二個數字要比第一個數字大啦～ 不然我不會找啦🤭，例如:11-15`
             document.write(msg)
           }
-          if (use[1] - use[0] > 4) {
+          else if (use[1] - use[0] > 4) {
             msg[0] = '最多只能發送五則訊息唷😊！\n例如：6-10'
+            document.write(msg)
+          }
+          // 超過搜尋範圍
+          else if (use[0] > test.data.length || use[1] > test.data.length || use[0] < 1) {
+            msg[0] = '超出搜尋範圍啦💆‍♂！可以先查看目錄總共有幾則消息唷！\n目錄查詢請輸入 c'
             document.write(msg)
           }
           else {
@@ -154,8 +157,12 @@
               if (test.data[i].PageSummary.includes(order(use))) {
                 msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
               }
+              else if (msg[1] === '') {
+                msg[0] = `7天內沒有 "${order(use)}" 的訊息，請再嘗試搜尋別的地區🚀`
+              }
               document.write(msg)
             }
+
           }
         }
         // 找國家、洲相關目錄(標題&國家皆搜尋,全域搜尋) g ok
@@ -168,6 +175,9 @@
             if (i === test.data.length - 1) {
               if (test.data[i].PageTitle.includes(all(use)) || test.data[i].PageSummary.includes(all(use))) {
                 msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+              }
+              else if (msg[1] === '') {
+                msg[0] = `7天內沒有 "${all(use)}" 的相關訊息，請再嘗試搜尋別的地區🚀`
               }
               document.write(msg)
             }
@@ -193,7 +203,7 @@
           document.write(`等我做...`)
         }
         else {
-          msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?\n或是到 經濟部國際貿易局 經貿資訊網查詢：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
+          msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?👼(不過恐龍我還沒學會聊天...)\n或者請你輸入正確指令，不清楚可輸入 f 查看，\n或是到 經濟部國際貿易局 經貿資訊網搜詢相關資訊：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
           document.write(msg[0]);
         }
 
