@@ -156,10 +156,6 @@ bot.on('message', async (event) => {
               msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
             } else if (i === divide4 - 1) {
               msg[0] += `s${i + 1}：${data[i].PageTitle}`
-              if (use.includes('1')) {
-                event.reply(msg[0])
-                break
-              }
             }
             msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
           }
@@ -170,10 +166,6 @@ bot.on('message', async (event) => {
               msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
             } else if (i === (divide4 * 2) - 1) {
               msg[1] += `s${i + 1}：${data[i].PageTitle}`
-              if (use.includes('2')) {
-                event.reply(msg[1])
-                break
-              }
             }
             msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
           }
@@ -184,10 +176,6 @@ bot.on('message', async (event) => {
               msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
             } else if (i === (divide4 * 3) - 1) {
               msg[2] += `s${i + 1}：${data[i].PageTitle}`
-              if (use.includes('3')) {
-                event.reply(msg[2])
-                break
-              }
             }
             msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
           }
@@ -199,10 +187,6 @@ bot.on('message', async (event) => {
             } else if (i === data.length - 1) {
               msg[3] += `s${i + 1}：${data[i].PageTitle}`
               event.reply(msg)
-              if (use.includes('4')) {
-                event.reply(msg[3])
-                break
-              }
             }
             msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
           }
