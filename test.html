@@ -78,7 +78,7 @@
         console.log(`${date.getMonth() + 1}-${date.getDate()}`);
 
         // 使用者訊息
-        use = '?'
+        use = 'S中國'
         console.log(!isNaN(order(use)))
         // 最新N篇 OK
         // 正則完是數字 
@@ -146,7 +146,7 @@
         else if (isNaN(order(use)) && use.includes('s') || use.includes('S')) {
           for (let i = 0; i < test.data.length; i++) {
             // 確認國家
-            msg[0] = `📍 ${order(use)}<br>`
+            msg[0] = `📍 ${order(use)}\n請再輸入對應的指定代號，即可查看內容🔍<br>`
             if (test.data[i].PageSummary.includes(order(use))) {
               msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
             }
@@ -160,7 +160,7 @@
         }
         // 找國家、洲相關目錄(標題&國家皆搜尋,全域搜尋) g ok
         else if (isNaN(all(use)) && use.includes('g') || use.includes('G')) {
-          msg[0] = `有關 🌎 ${all(use)} 的所有資訊<br>`
+          msg[0] = `有關 🌎 ${all(use)} 的所有資訊\n請再輸入對應的指定代號，即可查看內容🔍<br>`
           for (let i = 0; i < test.data.length; i++) {
             if (test.data[i].PageTitle.includes(all(use)) || test.data[i].PageSummary.includes(all(use))) {
               msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
