@@ -161,7 +161,7 @@ bot.on('message', async (event) => {
         // 第三區目錄
         if (i >= (divide4 * 2) && i < (divide4 * 3)) {
           if (i === (divide4 * 2)) {
-            msg[2] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}`
+            msg[2] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}\n`
             msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
           } else if (i === (divide4 * 3) - 1) {
             msg[2] += `s${i + 1}：${data[i].PageTitle}`
@@ -170,8 +170,8 @@ bot.on('message', async (event) => {
         }
         // 第四區目錄 要跑到(總長度-1)
         if (i >= (divide4 * 3) && i < data.length) {
-          if (i === (divide4 * 2)) {
-            msg[3] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}`
+          if (i === (divide4 * 3)) {
+            msg[3] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}\n`
             msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
           } else if (i === data.length - 1) {
             msg[3] += `s${i + 1}：${data[i].PageTitle}`
