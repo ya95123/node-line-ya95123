@@ -71,10 +71,8 @@ const msgE = '程式或指令發生錯誤！指令可以輸入 f 查詢唷😊\n
 
 // 當收到訊息時
 bot.on('message', async (event) => {
-  // TODO 圖文按鈕(歐洲/美洲/中東/亞洲)
+  // TODO 圖文按鈕(歐洲/美洲/中東/亞太/最新3則/功能查詢)
   // TODO 做 推播3則 7:00 12:30
-  // TODO 1.去掉test. OK 2.去掉<br> 3.document.write(msg)改成event.reply(msg) OK
-  // TODO 4.Date OK 5.||問題 OK 6.<hr>拿掉
   try {
     // 抓API回復
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
@@ -132,11 +130,6 @@ bot.on('message', async (event) => {
       // *呼叫目錄 c OK
       // 總數分四段，且無條件捨去
       const divide4 = Math.floor((data.length / 4))
-      // 目錄名稱
-      // msg[0] = `第 1 區目錄 📚1 - ${divide4}`
-      // msg[2] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}`
-      // msg[4] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}`
-      // msg[6] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}`
       for (let i = 0; i < data.length; i++) {
         // 第一區目錄
         if (i < divide4) {
@@ -145,6 +138,10 @@ bot.on('message', async (event) => {
             msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
           } else if (i === divide4 - 1) {
             msg[0] += `s${i + 1}：${data[i].PageTitle}`
+            if (use.includes('1')) {
+              event.reply(msg[0])
+              break
+            }
           }
           msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
         }
@@ -155,6 +152,10 @@ bot.on('message', async (event) => {
             msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
           } else if (i === (divide4 * 2) - 1) {
             msg[1] += `s${i + 1}：${data[i].PageTitle}`
+            if (use.includes('2')) {
+              event.reply(msg[1])
+              break
+            }
           }
           msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
         }
@@ -165,6 +166,10 @@ bot.on('message', async (event) => {
             msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
           } else if (i === (divide4 * 3) - 1) {
             msg[2] += `s${i + 1}：${data[i].PageTitle}`
+            if (use.includes('3')) {
+              event.reply(msg[2])
+              break
+            }
           }
           msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
         }
@@ -176,6 +181,10 @@ bot.on('message', async (event) => {
           } else if (i === data.length - 1) {
             msg[3] += `s${i + 1}：${data[i].PageTitle}`
             event.reply(msg)
+            if (use.includes('4')) {
+              event.reply(msg[3])
+              break
+            }
           }
           msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
         }
