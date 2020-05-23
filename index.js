@@ -69,30 +69,17 @@ const number = (str) => {
   return str.replace(/\D/g, '')
 }
 
-// const data = schedule.scheduleJob('50 * * * * *', () => {
-//   this.rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
-// })
-// const getData =()=>{
+// const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
 
-// }
-
-// let data = rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
-
-// // 每 1 分鐘抓資料
-// const getData = schedule.scheduleJob('30 * * * * *', () => {
-//   data = rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
-//   console.log('1分鐘')
-//   console.log(data[0].PagePublishTime)
-// })
 let data = {}
 const getData = async () => {
   data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+  console.log('1分鐘')
+  console.log(data[0].PagePublishTime)
 }
-getData()
-schedule.scheduleJob('55 * * * * *', getData())
-console.log(data)
 // getData()
-// schedule.scheduleJob('0 * * * * *', getData())
+schedule.scheduleJob('55 * * * * *', getData())
+
 const msgE = '程式或指令發生錯誤！指令可以輸入 f 查詢唷😊\n若指令確認無誤就是本地球村發生問題啦💦'
 
 // 當收到訊息時
