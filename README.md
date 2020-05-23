@@ -1,5 +1,10 @@
 # 地球村民經濟報
 自稱：本地球村民
+好友 ID ：@535lslfv
+![image alt](./QRcode))
+公開資料來源：[全球商機資訊](https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true)
+公開資料網站：[經濟部國際貿易局 經貿資訊網](https://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4)
+**資料儲存皆為近7日**
 
 🧰 功能(指令)
  - new：查詢"最新發布消息3則"
