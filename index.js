@@ -194,7 +194,7 @@ bot.on('message', async (event) => {
         }
       }
     } else if ((use.includes('目錄') || use.includes('c') || use.includes('C')) && (number(use) > 4 || (number(use) < 1))) {
-      msg[0] = '💡超出目錄的搜尋範圍囉，目錄共分為4區，例如：c4'
+      msg[0] = '💡超出目錄的搜尋範圍囉，目錄共分為1-4區，例如：c2'
       event.reply(msg[0])
     } else if (isNaN(order(use)) && (use.includes('s') || use.includes('S'))) {
       // *找國家、洲目錄 s國家/洲/地區 OK
@@ -272,7 +272,7 @@ bot.on('message', async (event) => {
       event.reply(`功能(指令)\n🧱 n + 數字：查詢"最新發布消息"(至多5則) 例如：n3\n🧱 s + 數字：指定"第幾則消息" 例如：s10 \n🧱 s + 國家(或地區)：查詢"指定地區的消息標題目錄" 例如：s非洲\n🧱 g + 國家(或地區)：查詢"指定地區的{所有相關}消息標題目錄" 例如：g中東\n🧱 c：叫出所有消息標題目錄 \n🧱 today：查詢"今日的消息標題目錄"\n🧱 月@日：查詢"該日期的消息標題目錄" 例如：5@22\n🧱 ?：功能查詢(名稱分類) \n🧱 ?c：功能查詢(指令分類) \n\np.s.亞洲請打"亞太"或"亞太地區"\n開始試試看吧😊！
       `)
     } else {
-      msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?👼(不過恐龍我還沒學會聊天...)\n或者請你輸入正確指令，不清楚可輸入 f 查看，\n或是到 經濟部國際貿易局 經貿資訊網搜詢相關資訊：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
+      msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?👼(不過本地球村民還沒學會與你在雲上聊天☁...)\n或者請你輸入正確指令，不清楚可輸入 f 查看，\n或是到 經濟部國際貿易局 經貿資訊網搜詢相關資訊：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
       event.reply(msg[0])
     }
 
