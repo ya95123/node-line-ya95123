@@ -130,13 +130,47 @@ bot.on('message', async (event) => {
       }
     } else if (use === '目錄' || use === 'c' || use === 'C') {
       // *呼叫目錄 c OK
-      for (let i = 0; i < data.length; i++) {
-        if (i === data.length - 1) {
+      // 總數分四段，且無條件捨去
+      const divide4 = Math.floor((data.length / 4))
+      // 第一區目錄
+      for (let i = 0; i < divide4; i++) {
+        if (i === divide4 - 1) {
           msg[0] += `s${i + 1}：${data[i].PageTitle}`
-          event.reply(msg)
+          event.reply(msg[0])
         }
         msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
       }
+      // 第二區目錄
+      for (let j = (divide4 - 1); j < (divide4 * 2); j++) {
+        if (j === (divide4 * 2) - 1) {
+          msg[1] += `s${j + 1}：${data[j].PageTitle}`
+          event.reply(msg[1])
+        }
+        msg[1] += `s${j + 1}：${data[j].PageTitle}\n`
+      }
+      // 第三區目錄
+      for (let k = ((divide4 * 2) - 1); k < (divide4 * 3); k++) {
+        if (k === (divide4 * 3) - 1) {
+          msg[2] += `s${k + 1}：${data[k].PageTitle}`
+          event.reply(msg[2])
+        }
+        msg[2] += `s${k + 1}：${data[k].PageTitle}\n`
+      }
+      // 第四區目錄 要跑到(總長度-1)
+      for (let m = ((divide4 * 3) - 1); m < data.length; m++) {
+        if (m === data.length - 1) {
+          msg[3] += `s${m + 1}：${data[m].PageTitle}`
+          event.reply(msg[3])
+        }
+        msg[3] += `s${m + 1}：${data[m].PageTitle}\n`
+      }
+      // for (let i = 0; i < data.length; i++) {
+      //   if (i === data.length - 1) {
+      //     msg[0] += `s${i + 1}：${data[i].PageTitle}`
+      //     event.reply(msg)
+      //   }
+      //   msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
+      // }
     } else if (isNaN(order(use)) && (use.includes('s') || use.includes('S'))) {
       // *找國家、洲目錄 s國家/洲/地區 OK
       for (let i = 0; i < data.length; i++) {
