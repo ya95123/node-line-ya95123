@@ -47,11 +47,11 @@
     }
     // 日期判斷用
     const dayif = (str) => {
-      return str.replace(/./g, '')
+      return str.replace(/@/g, '')
     }
     // 日期目錄 . -> - 抓相同日期用
     const day = (str) => {
-      return str.replace(/./g, '-')
+      return str.replace(/@/g, '-')
     }
 
     const msgE = '程式發生錯誤！'
@@ -76,8 +76,8 @@
         console.log(`${date.getMonth() + 1}-${date.getDate()}`);
 
         // 使用者訊息
-        use = 'g中東'
-        console.log(!isNaN(order(use)))
+        use = 'today'
+        console.log((day(use)))
         // 最新N篇 OK
         // 正則完是數字 
         if (!isNaN(news(use)) && (news(use)) >= 1 && (news(use)) <= 5 && use.includes('n') || use.includes('N')) {
@@ -183,21 +183,39 @@
             }
           }
         }
-        // TODO BUG 純打字會跳過來 先不抓時間
-        // else if (!isNaN(dayif(use))) {
-        //   msg[0] = `🕰 ${use}`
-        //   for (let i = 0; i < test.data.length; i++) {
-        //     if (test.data[i].PagePublishTime.includes(day(use))) {
-        //       msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
-        //     }
-        //     if (i === test.data.length - 1) {
-        //       if (test.data[i].PagePublishTime.includes(day(use))) {
-        //         msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
-        //       }
-        //       document.write(msg)
-        //     }
-        //   }
-        // }
+        // 找日期，顯示為那天標題目錄 @ OK
+        else if (!isNaN(dayif(use)) && use.includes('@') || use.includes('＠')) {
+          let textTime = use.split('@')
+          msg[0] = `🗓 ${textTime[0]}月${textTime[1]}日 <br>`
+          for (let i = 0; i < test.data.length; i++) {
+            if (test.data[i].PagePublishTime.includes(day(use))) {
+              msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+            }
+            if (i === test.data.length - 1) {
+              if (test.data[i].PagePublishTime.includes(day(use))) {
+                msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+              }
+              document.write(msg)
+            }
+          }
+        }
+        // 找今天，today OK
+        else if (use === 'today' || use === '今天' || use === '今日') {
+          let today = `${date.getMonth() + 1}-${date.getDate()}`
+          msg[0] = `🗓 ${date.getMonth() + 1}月${date.getDate()}日\n<br>`
+
+          for (let i = 0; i < test.data.length; i++) {
+            if (test.data[i].PagePublishTime.includes(today))
+              msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+            if (i === test.data.length - 1) {
+              console.log('近來2');
+              if (test.data[i].PagePublishTime.includes(today)) {
+                msg[1] += `s${i + 1}：${test.data[i].PageTitle}\n<br>`
+              }
+              document.write(msg)
+            }
+          }
+        }
         // 功能
         else if (use === '?' || use === '功能' || use === 'f') {
           document.write(`等我做...`)
