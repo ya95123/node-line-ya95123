@@ -137,42 +137,76 @@ bot.on('message', async (event) => {
       msg[1] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}`
       msg[2] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}`
       msg[3] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}`
-      // 第一區目錄
-      for (let i = 0; i < divide4; i++) {
-        if (i === divide4 - 1) {
-          msg[4] += `s${i + 1}：${data[i].PageTitle}`
-          event.reply(msg[0])
-          event.reply(msg[4])
+      for (let i = 0; i < data.length; i++) {
+        if (i < divide4) {
+          if (i === divide4 - 1) {
+            msg[4] += `s${i + 1}：${data[i].PageTitle}`
+            event.reply(msg[0])
+            event.reply(msg[4])
+          }
+          msg[4] += `s${i + 1}：${data[i].PageTitle}\n`
         }
-        msg[4] += `s${i + 1}：${data[i].PageTitle}\n`
-      }
-      // 第二區目錄
-      for (let j = divide4; j < (divide4 * 2); j++) {
-        if (j === (divide4 * 2) - 1) {
-          msg[5] += `s${j + 1}：${data[j].PageTitle}`
-          event.reply(msg[1])
-          event.reply(msg[5])
+        if (i >= divide4 && i < (divide4 * 2)) {
+          if (i === (divide4 * 2) - 1) {
+            msg[5] += `s${i + 1}：${data[i].PageTitle}`
+            event.reply(msg[1])
+            event.reply(msg[5])
+          }
+          msg[5] += `s${i + 1}：${data[i].PageTitle}\n`
         }
-        msg[5] += `s${j + 1}：${data[j].PageTitle}\n`
-      }
-      // 第三區目錄
-      for (let k = (divide4 * 2); k < (divide4 * 3); k++) {
-        if (k === (divide4 * 3) - 1) {
-          msg[6] += `s${k + 1}：${data[k].PageTitle}`
-          event.reply(msg[2])
-          event.reply(msg[6])
+        if (i >= (divide4 * 2) && i < (divide4 * 3)) {
+          if (i === (divide4 * 3) - 1) {
+            msg[6] += `s${i + 1}：${data[i].PageTitle}`
+            event.reply(msg[2])
+            event.reply(msg[6])
+          }
+          msg[6] += `s${i + 1}：${data[i].PageTitle}\n`
         }
-        msg[6] += `s${k + 1}：${data[k].PageTitle}\n`
-      }
-      // 第四區目錄 要跑到(總長度-1)
-      for (let m = (divide4 * 3); m < data.length; m++) {
-        if (m === data.length - 1) {
-          msg[7] += `s${m + 1}：${data[m].PageTitle}`
-          event.reply(msg[3])
-          event.reply(msg[7])
+        if (i >= (divide4 * 3) && i < data.length) {
+          if (i === data.length - 1) {
+            msg[7] += `s${i + 1}：${data[i].PageTitle}`
+            event.reply(msg[3])
+            event.reply(msg[7])
+          }
+          msg[7] += `s${i + 1}：${data[i].PageTitle}\n`
         }
-        msg[7] += `s${m + 1}：${data[m].PageTitle}\n`
       }
+      // // 第一區目錄
+      // for (let i = 0; i < divide4; i++) {
+      //   if (i === divide4 - 1) {
+      //     msg[4] += `s${i + 1}：${data[i].PageTitle}`
+      //     event.reply(msg[0])
+      //     event.reply(msg[4])
+      //   }
+      //   msg[4] += `s${i + 1}：${data[i].PageTitle}\n`
+      // }
+      // // 第二區目錄
+      // for (let j = divide4; j < (divide4 * 2); j++) {
+      //   if (j === (divide4 * 2) - 1) {
+      //     msg[5] += `s${j + 1}：${data[j].PageTitle}`
+      //     event.reply(msg[1])
+      //     event.reply(msg[5])
+      //   }
+      //   msg[5] += `s${j + 1}：${data[j].PageTitle}\n`
+      // }
+      // // 第三區目錄
+      // for (let k = (divide4 * 2); k < (divide4 * 3); k++) {
+      //   if (k === (divide4 * 3) - 1) {
+      //     msg[6] += `s${k + 1}：${data[k].PageTitle}`
+      //     event.reply(msg[2])
+      //     event.reply(msg[6])
+      //   }
+      //   msg[6] += `s${k + 1}：${data[k].PageTitle}\n`
+      // }
+      // // 第四區目錄 要跑到(總長度-1)
+      // for (let m = (divide4 * 3); m < data.length; m++) {
+      //   if (m === data.length - 1) {
+      //     msg[7] += `s${m + 1}：${data[m].PageTitle}`
+      //     event.reply(msg[3])
+      //     event.reply(msg[7])
+      //   }
+      //   msg[7] += `s${m + 1}：${data[m].PageTitle}\n`
+      // }
       // for (let i = 0; i < data.length; i++) {
       //   if (i === data.length - 1) {
       //     msg[0] += `s${i + 1}：${data[i].PageTitle}`
@@ -238,7 +272,6 @@ bot.on('message', async (event) => {
 
       for (let i = 0; i < data.length; i++) {
         if (i === data.length - 1) {
-          console.log('近來2')
           if (data[i].PagePublishTime.includes(today)) {
             msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
           }
