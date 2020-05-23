@@ -132,37 +132,46 @@ bot.on('message', async (event) => {
       // *呼叫目錄 c OK
       // 總數分四段，且無條件捨去
       const divide4 = Math.floor((data.length / 4))
+      // 目錄名稱
+      msg[0] = `第 1 區目錄 📚0 - ${divide4}`
+      msg[1] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}`
+      msg[2] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}`
+      msg[3] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}`
       // 第一區目錄
       for (let i = 0; i < divide4; i++) {
         if (i === divide4 - 1) {
-          msg[0] += `s${i + 1}：${data[i].PageTitle}`
+          msg[4] += `s${i + 1}：${data[i].PageTitle}`
           event.reply(msg[0])
+          event.reply(msg[4])
         }
-        msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
+        msg[4] += `s${i + 1}：${data[i].PageTitle}\n`
       }
       // 第二區目錄
-      for (let j = (divide4 - 1); j < (divide4 * 2); j++) {
+      for (let j = divide4; j < (divide4 * 2); j++) {
         if (j === (divide4 * 2) - 1) {
-          msg[1] += `s${j + 1}：${data[j].PageTitle}`
+          msg[5] += `s${j + 1}：${data[j].PageTitle}`
           event.reply(msg[1])
+          event.reply(msg[5])
         }
-        msg[1] += `s${j + 1}：${data[j].PageTitle}\n`
+        msg[5] += `s${j + 1}：${data[j].PageTitle}\n`
       }
       // 第三區目錄
-      for (let k = ((divide4 * 2) - 1); k < (divide4 * 3); k++) {
+      for (let k = (divide4 * 2); k < (divide4 * 3); k++) {
         if (k === (divide4 * 3) - 1) {
-          msg[2] += `s${k + 1}：${data[k].PageTitle}`
+          msg[6] += `s${k + 1}：${data[k].PageTitle}`
           event.reply(msg[2])
+          event.reply(msg[6])
         }
-        msg[2] += `s${k + 1}：${data[k].PageTitle}\n`
+        msg[6] += `s${k + 1}：${data[k].PageTitle}\n`
       }
       // 第四區目錄 要跑到(總長度-1)
-      for (let m = ((divide4 * 3) - 1); m < data.length; m++) {
+      for (let m = (divide4 * 3); m < data.length; m++) {
         if (m === data.length - 1) {
-          msg[3] += `s${m + 1}：${data[m].PageTitle}`
+          msg[7] += `s${m + 1}：${data[m].PageTitle}`
           event.reply(msg[3])
+          event.reply(msg[7])
         }
-        msg[3] += `s${m + 1}：${data[m].PageTitle}\n`
+        msg[7] += `s${m + 1}：${data[m].PageTitle}\n`
       }
       // for (let i = 0; i < data.length; i++) {
       //   if (i === data.length - 1) {
