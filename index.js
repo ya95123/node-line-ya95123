@@ -83,16 +83,19 @@ bot.on('message', async (event) => {
     const date = new Date()
     let use = event.message.text
 
-    if (!isNaN(news(use)) && (news(use)) >= 1 && (news(use)) <= 5 && (use.includes('n') || use.includes('N'))) {
+    if (!isNaN(news(use)) && (news(use)) > 1 && (news(use)) <= 5 && (use.includes('n') || use.includes('N'))) {
       // *最新N篇
       for (let i = 0; i < news(use); i++) {
         if (i === ((news(use)) - 1)) {
           msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
           event.reply(msg)
-        } else {
-          msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
         }
+        msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
       }
+    } else if (!isNaN(news(use)) && (news(use)) === 1 && (use.includes('n') || use.includes('N'))) {
+      // 指定 n1
+      msg[0] = `第 ${news(use)} 則\n台灣時間：${delLine(delT(data[news(use)].PagePublishTime))}\n地區：${delDot(data[news(use)].PageSummary)}\n⭐ 最新消息\n${data[news(use)].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[news(use)].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+      event.reply(msg)
     } else if (!isNaN(news(use)) && (news(use)) > 5 && (use.includes('n') || use.includes('N'))) {
       // 最新N篇，數字超過5(太多) OK
       msg[0] = '最新消息做多只能發送前五則唷😊！\n想往後看，可以使用區間打法(一次最多也是5則消息)，例如：6-10\n\n若是要指定第幾則消息，請在數字前面加上"s"唷，例如：s20'
