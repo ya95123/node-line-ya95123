@@ -74,7 +74,7 @@ bot.on('message', async (event) => {
   // TODO 圖文按鈕(歐洲/美洲/中東/亞洲)
   // TODO 做 推播3則 7:00 12:30
   // TODO 1.去掉test. OK 2.去掉<br> 3.document.write(msg)改成event.reply(msg) OK
-  // TODO 4.Date OK 5.||問題 OK
+  // TODO 4.Date OK 5.||問題 OK 6.<hr>拿掉
   try {
     // 抓API回復
     const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
@@ -86,14 +86,14 @@ bot.on('message', async (event) => {
     if (!isNaN(news(use)) && (news(use)) >= 1 && (news(use)) <= 5 && (use.includes('n') || use.includes('N'))) {
       // *最新N篇
       for (let i = 0; i < news(use); i++) {
-        msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}<hr>`
         if (i === ((news(use)) - 1)) {
           msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
           event.reply(msg)
         }
+        msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
       }
     } else if (!isNaN(news(use)) && (news(use)) > 5 && (use.includes('n') || use.includes('N'))) {
-      // *最新N篇，數字超過5(太多) OK
+      // 最新N篇，數字超過5(太多) OK
       msg[0] = '最新消息做多只能發送前五則唷😊！\n想往後看，可以使用區間打法(一次最多也是5則消息)，例如：6-10\n\n若是要指定第幾則消息，請在數字前面加上"s"唷，例如：s20'
       event.reply(msg[0])
     } else if (!isNaN(order(use)) && order(use) <= data.length && (use.includes('s') || use.includes('S'))) {
@@ -101,7 +101,7 @@ bot.on('message', async (event) => {
       msg[0] = `第 ${order(use)} 則\n台灣時間：${delLine(delT(data[order(use) - 1].PagePublishTime))}\n地區：${delDot(data[order(use) - 1].PageSummary)}\n⭐ 最新消息\n${data[order(use) - 1].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[order(use) - 1].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
       event.reply(msg[0])
     } else if (!isNaN(order(use)) && (order(use) > data.length || order(use) < 1) && (use.includes('s') || use.includes('S'))) {
-      // *看第S篇 超過資料範圍 OK
+      // 看第S篇 超過資料範圍 OK
       msg[0] = `7 天內目前共有 ${data.length} 則消息唷，請再次輸入於範圍內搜尋🌞，例如：s${data.length}`
       event.reply(msg[0])
     } else if (!isNaN(interval(use)) && use.includes('-')) {
@@ -119,35 +119,33 @@ bot.on('message', async (event) => {
         // 超過搜尋範圍
         msg[0] = '超出搜尋範圍啦💆‍♂！可以先查看目錄總共有幾則消息唷！\n目錄查詢請輸入 c'
         event.reply(msg)
+        // 符合條件執行
       } else {
         // count 為 設定 msg 的排序
         let count = -1
         for (let i = use[0] - 1; i < use[1]; i++) {
           count = count + 1
-          msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}<hr>`
           if (i === use[1] - 1) {
             msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
             event.reply(`${msg}`)
           }
+          msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
         }
       }
     } else if (use === '目錄' || use === 'c' || use === 'C') {
       // *呼叫目錄 c OK
       for (let i = 0; i < data.length; i++) {
-        msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
         if (i === data.length - 1) {
           msg[0] += `s${i + 1}：${data[i].PageTitle}`
           event.reply(msg)
         }
+        msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
       }
     } else if (isNaN(order(use)) && (use.includes('s') || use.includes('S'))) {
       // *找國家、洲目錄 s國家/洲/地區 OK
       for (let i = 0; i < data.length; i++) {
         // 確認國家
         msg[0] = `📍 ${order(use)}\n請再輸入對應的指定代號，即可查看內容🔍`
-        if (data[i].PageSummary.includes(order(use))) {
-          msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
-        }
         if (i === data.length - 1) {
           if (data[i].PageSummary.includes(order(use))) {
             msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
@@ -156,14 +154,14 @@ bot.on('message', async (event) => {
           }
           event.reply(msg)
         }
+        if (data[i].PageSummary.includes(order(use))) {
+          msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
+        }
       }
     } else if (isNaN(all(use)) && (use.includes('g') || use.includes('G'))) {
       // *找國家、洲相關目錄(標題&國家皆搜尋,全域搜尋) g ok
       msg[0] = `有關 🌎 ${all(use)} 的所有資訊\n請再輸入對應的指定代號，即可查看內容🔍`
       for (let i = 0; i < data.length; i++) {
-        if (data[i].PageTitle.includes(all(use)) || data[i].PageSummary.includes(all(use))) {
-          msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
-        }
         if (i === data.length - 1) {
           if (data[i].PageTitle.includes(all(use)) || data[i].PageSummary.includes(all(use))) {
             msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
@@ -172,15 +170,15 @@ bot.on('message', async (event) => {
           }
           event.reply(msg)
         }
+        if (data[i].PageTitle.includes(all(use)) || data[i].PageSummary.includes(all(use))) {
+          msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
+        }
       }
     } else if (!isNaN(dayif(use)) && (use.includes('@') || use.includes('＠'))) {
       // *找日期，顯示為那天標題目錄 @ OK
       const textTime = use.split('@')
       msg[0] = `🗓 ${textTime[0]}月${textTime[1]}日 `
       for (let i = 0; i < data.length; i++) {
-        if (data[i].PagePublishTime.includes(day(use))) {
-          msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
-        }
         if (i === data.length - 1) {
           if (data[i].PagePublishTime.includes(day(use))) {
             msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
@@ -190,6 +188,9 @@ bot.on('message', async (event) => {
           }
           event.reply(msg)
         }
+        if (data[i].PagePublishTime.includes(day(use))) {
+          msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
+        }
       }
     } else if (use === 'today' || use === '今天' || use === '今日') {
       // *找今天，today OK
@@ -197,7 +198,6 @@ bot.on('message', async (event) => {
       msg[0] = `🗓 ${date.getMonth() + 1}月${date.getDate()}日\n`
 
       for (let i = 0; i < data.length; i++) {
-        if (data[i].PagePublishTime.includes(today)) { msg[1] += `s${i + 1}：${data[i].PageTitle}\n` }
         if (i === data.length - 1) {
           console.log('近來2')
           if (data[i].PagePublishTime.includes(today)) {
@@ -205,14 +205,17 @@ bot.on('message', async (event) => {
           }
           event.reply(msg)
         }
+        if (data[i].PagePublishTime.includes(today)) {
+          msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
+        }
       }
     } else if (use === '?' || use === '功能' || use === 'f') {
       // *功能(名稱排版) ?
-      event.reply(`功能(名稱)\n🧱 最新發布消息(至多5則)：n + 數字，例如：n3\n🧱 指定第幾則消息：s + 數字，例如：s10\n\n🧱 所有消息目錄：c\n\n🧱 指定地區的所有消息目錄：s + 國家(或地區)，例如：s非洲\n🧱 指定地區的{所有相關}消息目錄：g + 國家(或地區)，例如：g中東\n🧱 今日的消息目錄：today\n🧱 該日期的消息目錄：月@日，例如：5@22\n\n🧱 功能查詢(名稱分類)：?\n🧱 功能查詢(指令分類)：?c\n\n開始試試看吧😊！
+      event.reply(`功能(名稱)\n🧱 最新發布消息(至多5則)：n + 數字，例如：n3\n🧱 指定第幾則消息：s + 數字，例如：s10\n\n🧱 所有消息目錄：c\n\n🧱 指定地區的所有消息目錄：s + 國家(或地區)，例如：s非洲\n🧱 指定地區的{所有相關}消息目錄：g + 國家(或地區)，例如：g中東\n🧱 今日的消息目錄：today\n🧱 該日期的消息目錄：月@日，例如：5@22\n\n🧱 功能查詢(名稱分類)：?\n🧱 功能查詢(指令分類)：?c\n\np.s.亞洲請打"亞太"或"亞太地區"\n開始試試看吧😊！
       `)
     } else if (use === '?c' || use === '功能c' || use === 'fc') {
       // *功能(指令排版) ?c
-      event.reply(`功能(指令)\n🧱 n + 數字：查詢"最新發布消息"(至多5則) 例如：n3\n🧱 s + 數字：指定"第幾則消息" 例如：s10 \n🧱 s + 國家(或地區)：查詢"指定地區的消息標題目錄" 例如：s非洲\n🧱 g + 國家(或地區)：查詢"指定地區的{所有相關}消息標題目錄" 例如：g中東\n🧱 c：叫出所有消息標題目錄 \n🧱 today：查詢"今日的消息標題目錄"\n🧱 月@日：查詢"該日期的消息標題目錄" 例如：5@22\n🧱 ?：功能查詢(名稱分類) \n🧱 ?c：功能查詢(指令分類) \n\n開始試試看吧😊！
+      event.reply(`功能(指令)\n🧱 n + 數字：查詢"最新發布消息"(至多5則) 例如：n3\n🧱 s + 數字：指定"第幾則消息" 例如：s10 \n🧱 s + 國家(或地區)：查詢"指定地區的消息標題目錄" 例如：s非洲\n🧱 g + 國家(或地區)：查詢"指定地區的{所有相關}消息標題目錄" 例如：g中東\n🧱 c：叫出所有消息標題目錄 \n🧱 today：查詢"今日的消息標題目錄"\n🧱 月@日：查詢"該日期的消息標題目錄" 例如：5@22\n🧱 ?：功能查詢(名稱分類) \n🧱 ?c：功能查詢(指令分類) \n\np.s.亞洲請打"亞太"或"亞太地區"\n開始試試看吧😊！
       `)
     } else {
       msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?👼(不過恐龍我還沒學會聊天...)\n或者請你輸入正確指令，不清楚可輸入 f 查看，\n或是到 經濟部國際貿易局 經貿資訊網搜詢相關資訊：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
