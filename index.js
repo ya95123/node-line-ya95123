@@ -105,7 +105,7 @@ bot.on('message', async (event) => {
       // 把 use 轉成陣列
       use = use.split('-')
       console.log(`${use[0]}-${use[1]}`)
-      if (use[1] - use[0] < 0) {
+      if (use[0] - use[1] < 0) {
         msg[0] = '第二個數字要比第一個數字大啦～ 不然我不會找啦🤭，例如:11-15'
         event.reply(msg)
       } else if (use[1] - use[0] > 4) {
