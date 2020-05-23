@@ -1,12 +1,15 @@
 # 地球村民經濟報
-自稱：本地球村民
-好友 ID ：@535lslfv
-![image alt](./QRcode))
-公開資料來源：[全球商機資訊](https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true)
-公開資料網站：[經濟部國際貿易局 經貿資訊網](https://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4)
-**資料儲存皆為近7日**
-
-🧰 功能(指令)
+自稱：本地球村民 
+好友 ID ：@535lslfv 
+![好友QR code](https://i.imgur.com/TUozfXD.png) 
+公開資料來源：[全球商機資訊](https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true) 
+公開資料網站：[經濟部國際貿易局 經貿資訊網](https://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4) 
+**資料儲存皆為近7日** 
+ 
+ 內容：主要為分享世界各國經濟資訊，每天來點地球彼端的新知，也關心遠方親戚朋友的國家經濟狀況吧😉！ 
+ (只能查詢其他國家，查不了台灣唷，想看台灣，請走跳台灣新聞🤠) 
+  
+ 🧰 功能(指令)
  - new：查詢"最新發布消息3則"
  - s + 數字：指定"第幾則消息" 例如：s10 
  - s + 國家(或地區)：查詢"指定地區的消息標題目錄" 例如：s非洲
@@ -22,4 +25,4 @@
  - today=今日=今天
  - ?=f=功能
 
-開始試試看吧😊！
+開始試試看吧😊！ 
