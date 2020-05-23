@@ -139,7 +139,7 @@ bot.on('message', async (event) => {
           msg[count] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
         }
       }
-    } else if ((use.includes('目錄') || use.includes('c') || use.includes('C'))) {
+    } else if ((use === '目錄' || use === 'c' || use === 'C')) {
       // *呼叫目錄 c OK
       // 超出目錄範圍
       if (number(use) > 4 || number(use) === 0) {
