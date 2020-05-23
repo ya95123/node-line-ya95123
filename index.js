@@ -83,7 +83,7 @@ bot.on('message', async (event) => {
     const date = new Date()
     let use = event.message.text
 
-    if (use === 'new' || use === 'NEW') {
+    if (use === 'new' || use === 'NEW' || use === 'New') {
       // *最新3篇
       for (let i = 0; i < 3; i++) {
         if (i === 2) {
