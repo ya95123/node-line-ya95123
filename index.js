@@ -69,14 +69,19 @@ const number = (str) => {
   return str.replace(/\D/g, '')
 }
 
-let data = {}
-const getData = () => {
-  data = rp({ uri: 'https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL', json: true })
-}
-// 每 1 分鐘抓資料
-getData()
-schedule.scheduleJob('0 * * * * *', getData())
+// const data = schedule.scheduleJob('50 * * * * *', () => {
+//   this.rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+// })
+// const getData =()=>{
 
+// }
+let data = {}
+// 每 1 分鐘抓資料
+const getData = schedule.scheduleJob('50 * * * * *', () => {
+  data = rp({ uri: 'https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL', json: true })
+})
+getData()
+// schedule.scheduleJob('0 * * * * *', getData())
 const msgE = '程式或指令發生錯誤！指令可以輸入 f 查詢唷😊\n若指令確認無誤就是本地球村發生問題啦💦'
 
 // 當收到訊息時
