@@ -76,7 +76,7 @@
         console.log(`${date.getMonth() + 1}-${date.getDate()}`);
 
         // 使用者訊息
-        use = '6@30'
+        use = '?c'
         console.log((day(use)))
         // 最新N篇 OK
         // 正則完是數字 
@@ -219,37 +219,44 @@
             }
           }
         }
-        // 功能
+        // 功能(名稱排版)
         else if (use === '?' || use === '功能' || use === 'f') {
-          document.write(`等我做...`)
+          document.write(`
+          功能(名稱)\n<br>
+          🧱 最新發布消息(至多5則)：n + 數字，例如：n3\n<br>
+          🧱 指定第幾則消息：s + 數字，例如：s10\n<br>\n<br>
+          🧱 所有消息目錄：c\n<br>\n<br>
+          🧱 指定地區的所有消息目錄：s + 國家(或地區)，例如：s非洲\n<br>
+          🧱 指定地區的{所有相關}消息目錄：g + 國家(或地區)，例如：g中東\n<br>
+          🧱 今日的消息目錄：today\n<br>
+          🧱 該日期的消息目錄：月@日，例如：5@22\n<br>\n<br>
+          🧱 功能查詢(名稱分類)：?\n<br>
+          🧱 功能查詢(指令分類)：?c\n<br>\n<br>
+
+          開始試試看吧😊！
+          `)
+        }
+        // 功能(指令排版)
+        else if (use === '?c' || use === '功能c' || use === 'fc') {
+          document.write(`
+          功能(指令)\n<br>
+          🧱 n + 數字：查詢"最新發布消息"(至多5則) 例如：n3\n<br>
+          🧱 s + 數字：指定"第幾則消息" 例如：s10 \n<br>
+          🧱 s + 國家(或地區)：查詢"指定地區的消息標題目錄" 例如：s非洲\n<br>
+          🧱 g + 國家(或地區)：查詢"指定地區的{所有相關}消息標題目錄" 例如：g中東\n<br>
+          🧱 c：叫出所有消息標題目錄 \n<br>
+          🧱 today：查詢"今日的消息標題目錄"\n<br>
+          🧱 月@日：查詢"該日期的消息標題目錄" 例如：5@22\n<br>
+          🧱 ?：功能查詢(名稱分類) \n<br>
+          🧱 ?c：功能查詢(指令分類) \n<br>\n<br>
+
+          開始試試看吧😊！
+          `)
         }
         else {
           msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?👼(不過恐龍我還沒學會聊天...)\n或者請你輸入正確指令，不清楚可輸入 f 查看，\n或是到 經濟部國際貿易局 經貿資訊網搜詢相關資訊：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
           document.write(msg[0]);
         }
-
-
-
-
-
-
-
-
-
-
-        // TODO 時間
-        // msg[i] = `${i + 1})台灣時間：${delT(test.data[i].PagePublishTime)}\n地區：${delDot(test.data[i].PageSummary)}\n⭐ 近期消息 ⭐\n${test.data[i].PageTitle}\n\n📨 主要內容\n${delHtmlTag(test.data[i].PageContent)}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-        // }
-
-        // 正則5.21 .去掉是數字 進入功能 .轉- 找輸入的日期
-        // 抓日期成功了唷!!!
-        // for (let i = 0; i < test.data.length; i++) {
-        //   if (test.data[i].PagePublishTime.includes(`5-21`)) {
-        //     msg[i] = test.data[i].PageTitle + test.data[i].PagePublishTime
-        //   }
-
-        //   document.write(`${msg[i]}<hr>`);
-        // }
 
 
       } catch (error) {
