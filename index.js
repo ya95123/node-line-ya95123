@@ -134,39 +134,40 @@ bot.on('message', async (event) => {
       const divide4 = Math.floor((data.length / 4))
       // 目錄名稱
       msg[0] = `第 1 區目錄 📚0 - ${divide4}`
-      msg[1] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}`
-      msg[2] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}`
-      msg[3] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}`
+      msg[2] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}`
+      msg[4] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}`
+      msg[6] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}`
       for (let i = 0; i < data.length; i++) {
         if (i < divide4) {
           if (i === divide4 - 1) {
-            msg[4] += `s${i + 1}：${data[i].PageTitle}`
-            event.reply(msg[0])
-            event.reply(msg[4])
+            msg[1] += `s${i + 1}：${data[i].PageTitle}`
+            // event.reply(msg[0])
+            // event.reply(msg[4])
           }
-          msg[4] += `s${i + 1}：${data[i].PageTitle}\n`
+          msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
         }
         if (i >= divide4 && i < (divide4 * 2)) {
           if (i === (divide4 * 2) - 1) {
-            msg[5] += `s${i + 1}：${data[i].PageTitle}`
-            event.reply(msg[1])
-            event.reply(msg[5])
+            msg[3] += `s${i + 1}：${data[i].PageTitle}`
+            // event.reply(msg[1])
+            // event.reply(msg[5])
           }
-          msg[5] += `s${i + 1}：${data[i].PageTitle}\n`
+          msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
         }
         if (i >= (divide4 * 2) && i < (divide4 * 3)) {
           if (i === (divide4 * 3) - 1) {
-            msg[6] += `s${i + 1}：${data[i].PageTitle}`
-            event.reply(msg[2])
-            event.reply(msg[6])
+            msg[5] += `s${i + 1}：${data[i].PageTitle}`
+            // event.reply(msg[2])
+            // event.reply(msg[6])
           }
-          msg[6] += `s${i + 1}：${data[i].PageTitle}\n`
+          msg[5] += `s${i + 1}：${data[i].PageTitle}\n`
         }
         if (i >= (divide4 * 3) && i < data.length) {
           if (i === data.length - 1) {
             msg[7] += `s${i + 1}：${data[i].PageTitle}`
-            event.reply(msg[3])
-            event.reply(msg[7])
+            // event.reply(msg[3])
+            // event.reply(msg[7])
+            event.reply(msg)
           }
           msg[7] += `s${i + 1}：${data[i].PageTitle}\n`
         }
