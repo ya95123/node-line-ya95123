@@ -71,14 +71,14 @@ const number = (str) => {
 
 // const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
 
-let data = {}
-const getData = async () => {
-  data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
-  console.log('1分鐘')
-  console.log(data[0].PagePublishTime)
-}
+// let data = {}
+// const getData = async () => {
+//   data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+//   console.log('1分鐘')
+//   console.log(data[0].PagePublishTime)
+// }
 // getData()
-schedule.scheduleJob('55 * * * * *', getData())
+// schedule.scheduleJob('55 * * * * *', getData())
 
 const msgE = '程式或指令發生錯誤！指令可以輸入 f 查詢唷😊\n若指令確認無誤就是本地球村發生問題啦💦'
 
@@ -88,7 +88,7 @@ bot.on('message', async (event) => {
   // TODO 做 推播3則 7:00 12:30
   try {
     // 抓API回復
-    // const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+    const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
     // msg 回傳訊息，用陣列是可以分開對話框訊息
     const msg = ['', '']
     const date = new Date()
