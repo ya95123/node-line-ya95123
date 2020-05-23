@@ -133,47 +133,51 @@ bot.on('message', async (event) => {
       // 總數分四段，且無條件捨去
       const divide4 = Math.floor((data.length / 4))
       // 目錄名稱
-      msg[0] = `第 1 區目錄 📚0 - ${divide4}`
-      msg[2] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}`
-      msg[4] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}`
-      msg[6] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}`
+      // msg[0] = `第 1 區目錄 📚1 - ${divide4}`
+      // msg[2] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}`
+      // msg[4] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}`
+      // msg[6] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}`
       for (let i = 0; i < data.length; i++) {
+        // 第一區目錄
         if (i < divide4) {
-          if (i === divide4 - 1) {
+          if (i === 0) {
+            msg[0] = `第 1 區目錄 📚1 - ${divide4}\n`
+            msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
+          } else if (i === divide4 - 1) {
+            msg[0] += `s${i + 1}：${data[i].PageTitle}`
+          }
+          msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
+        }
+        // 第二區目錄
+        if (i >= divide4 && i < (divide4 * 2)) {
+          if (i === divide4) {
+            msg[1] = `第 2 區目錄 📚${divide4 + 1} - ${divide4 * 2}\n`
+            msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
+          } else if (i === (divide4 * 2) - 1) {
             msg[1] += `s${i + 1}：${data[i].PageTitle}`
-            // event.reply(msg[0])
-            // event.reply(msg[4])
-            event.reply(msg[0], msg[1])
           }
           msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
         }
-        if (i >= divide4 && i < (divide4 * 2)) {
-          if (i === (divide4 * 2) - 1) {
+        // 第三區目錄
+        if (i >= (divide4 * 2) && i < (divide4 * 3)) {
+          if (i === (divide4 * 2)) {
+            msg[2] = `第 3 區目錄 📚${divide4 * 2 + 1} - ${divide4 * 3}`
+            msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
+          } else if (i === (divide4 * 3) - 1) {
+            msg[2] += `s${i + 1}：${data[i].PageTitle}`
+          }
+          msg[2] += `s${i + 1}：${data[i].PageTitle}\n`
+        }
+        // 第四區目錄 要跑到(總長度-1)
+        if (i >= (divide4 * 3) && i < data.length) {
+          if (i === (divide4 * 2)) {
+            msg[3] = `第 4 區目錄 📚${divide4 * 3} - ${data.length}`
+            msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
+          } else if (i === data.length - 1) {
             msg[3] += `s${i + 1}：${data[i].PageTitle}`
-            // event.reply(msg[1])
-            // event.reply(msg[5])
-            event.reply(msg[2], msg[3])
+            event.reply(msg)
           }
           msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
-        }
-        if (i >= (divide4 * 2) && i < (divide4 * 3)) {
-          if (i === (divide4 * 3) - 1) {
-            msg[5] += `s${i + 1}：${data[i].PageTitle}`
-            // event.reply(msg[2])
-            // event.reply(msg[6])
-            event.reply(msg[4], msg[5])
-          }
-          msg[5] += `s${i + 1}：${data[i].PageTitle}\n`
-        }
-        if (i >= (divide4 * 3) && i < data.length) {
-          if (i === data.length - 1) {
-            msg[7] += `s${i + 1}：${data[i].PageTitle}`
-            // event.reply(msg[3])
-            // event.reply(msg[7])
-            // event.reply(msg)
-            event.reply(msg[6], msg[7])
-          }
-          msg[7] += `s${i + 1}：${data[i].PageTitle}\n`
         }
       }
       // // 第一區目錄
