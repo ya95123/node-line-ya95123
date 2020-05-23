@@ -146,7 +146,7 @@ bot.on('message', async (event) => {
           if (data[i].PageSummary.includes(order(use))) {
             msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
           } else if (msg[1] === '') {
-            msg[0] = `7天內沒有 "${order(use)}" 的消息，請再嘗試搜尋別的地區🚀`
+            msg[2] = `7天內沒有 "${order(use)}" 的消息，請再嘗試搜尋別的地區🚀`
           }
           event.reply(msg)
         }
@@ -162,7 +162,7 @@ bot.on('message', async (event) => {
           if (data[i].PageTitle.includes(all(use)) || data[i].PageSummary.includes(all(use))) {
             msg[1] += `s${i + 1}：${data[i].PageTitle}\n`
           } else if (msg[1] === '') {
-            msg[0] = `7天內沒有 "${all(use)}" 的相關消息，請再嘗試搜尋別的地區🚀`
+            msg[2] = `7天內沒有 "${all(use)}" 的相關消息，請再嘗試搜尋別的地區🚀`
           }
           event.reply(msg)
         }
