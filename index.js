@@ -189,49 +189,6 @@ bot.on('message', async (event) => {
           msg[3] += `s${i + 1}：${data[i].PageTitle}\n`
         }
       }
-      // // 第一區目錄
-      // for (let i = 0; i < divide4; i++) {
-      //   if (i === divide4 - 1) {
-      //     msg[4] += `s${i + 1}：${data[i].PageTitle}`
-      //     event.reply(msg[0])
-      //     event.reply(msg[4])
-      //   }
-      //   msg[4] += `s${i + 1}：${data[i].PageTitle}\n`
-      // }
-      // // 第二區目錄
-      // for (let j = divide4; j < (divide4 * 2); j++) {
-      //   if (j === (divide4 * 2) - 1) {
-      //     msg[5] += `s${j + 1}：${data[j].PageTitle}`
-      //     event.reply(msg[1])
-      //     event.reply(msg[5])
-      //   }
-      //   msg[5] += `s${j + 1}：${data[j].PageTitle}\n`
-      // }
-      // // 第三區目錄
-      // for (let k = (divide4 * 2); k < (divide4 * 3); k++) {
-      //   if (k === (divide4 * 3) - 1) {
-      //     msg[6] += `s${k + 1}：${data[k].PageTitle}`
-      //     event.reply(msg[2])
-      //     event.reply(msg[6])
-      //   }
-      //   msg[6] += `s${k + 1}：${data[k].PageTitle}\n`
-      // }
-      // // 第四區目錄 要跑到(總長度-1)
-      // for (let m = (divide4 * 3); m < data.length; m++) {
-      //   if (m === data.length - 1) {
-      //     msg[7] += `s${m + 1}：${data[m].PageTitle}`
-      //     event.reply(msg[3])
-      //     event.reply(msg[7])
-      //   }
-      //   msg[7] += `s${m + 1}：${data[m].PageTitle}\n`
-      // }
-      // for (let i = 0; i < data.length; i++) {
-      //   if (i === data.length - 1) {
-      //     msg[0] += `s${i + 1}：${data[i].PageTitle}`
-      //     event.reply(msg)
-      //   }
-      //   msg[0] += `s${i + 1}：${data[i].PageTitle}\n`
-      // }
     } else if (isNaN(order(use)) && (use.includes('s') || use.includes('S'))) {
       // *找國家、洲目錄 s國家/洲/地區 OK
       for (let i = 0; i < data.length; i++) {
@@ -311,31 +268,6 @@ bot.on('message', async (event) => {
       msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?👼(不過恐龍我還沒學會聊天...)\n或者請你輸入正確指令，不清楚可輸入 f 查看，\n或是到 經濟部國際貿易局 經貿資訊網搜詢相關資訊：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
       event.reply(msg[0])
     }
-    // if (parseInt(event.message.text) <= 5) {
-    //   // 指定最新幾則(5則以下)
-    //   for (let i = 0; i < parseInt(event.message.text); i++) {
-    //     msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
-
-    //     if (i === (parseInt(event.message.text) - 1)) {
-    //       msg[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-    //       event.reply(msg)
-    //     }
-    //   }
-    // } else {
-    //   msg[0] = '我好像看不懂啊...你是想跟我聊天嗎?\n或是到 經濟部國際貿易局 經貿資訊網查詢：\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
-    //   event.reply(msg)
-    // }
-
-    // // 國家全部
-    // for (let i = 0; i < data.length; i++) {
-    //   if (data[i].PageSummary.includes(event.message.text)) {
-    //     msg[i] = `${i + 1}.台灣時間：${delLine(delT(data[i].PagePublishTime))}\n地區：${delDot(data[i].PageSummary)}\n⭐ 最新消息\n${data[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[i].PageContent))}`
-    //   }
-    //   if (i === data.length - 1) {
-    //     msg[i] = '消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4'
-    //     event.reply(msg)
-    //   }
-    // }
 
     console.log(msg)
   } catch (error) {
@@ -355,14 +287,3 @@ bot.listen('/', process.env.PORT, () => {
 //     event.reply(event.message.text)
 //   }
 // })
-
-// n...
-// else if (!isNaN(news(use)) && (news(use)) === '1' && (use.includes('n') || use.includes('N'))) {
-//   // 指定 n1
-//   msg[0] = `第 ${news(use)} 則\n台灣時間：${delLine(delT(data[news(use)].PagePublishTime))}\n地區：${delDot(data[news(use)].PageSummary)}\n⭐ 最新消息\n${data[news(use)].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(data[news(use)].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
-//   event.reply(msg)
-// } else if (!isNaN(news(use)) && (news(use)) > 5 && (use.includes('n') || use.includes('N'))) {
-//   // 最新N篇，數字超過5(太多) OK
-//   msg[0] = '最新消息做多只能發送前五則唷😊！\n想往後看，可以使用區間打法(一次最多也是5則消息)，例如：6-10\n\n若是要指定第幾則消息，請在數字前面加上"s"唷，例如：s20'
-//   event.reply(msg[0])
-// }
