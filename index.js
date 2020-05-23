@@ -69,9 +69,9 @@ const day = (str) => {
 const number = (str) => {
   return str.replace(/\D/g, '')
 }
-// TODO 每日推播測試
+// TODO 每12小時推播測試
 const news = ['', '']
-const everyday = () => {
+const everdayInt = setInterval(() => {
   const dataB = async () => {
     const renew = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
     for (let i = 0; i < 3; i++) {
@@ -83,12 +83,27 @@ const everyday = () => {
     }
   }
   dataB()
-}
-everyday()
-// 7:00推播
-schedule.scheduleJob('0 0 7 * * *', everyday())
-// 12:30 推播
-schedule.scheduleJob('0 30 12 * * *', everyday())
+}, 43200000)
+everdayInt()
+// const news = ['', '']
+// const everyday = () => {
+//   const dataB = async () => {
+//     const renew = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
+//     for (let i = 0; i < 3; i++) {
+//       if (i === 2) {
+//         news[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(renew[i].PagePublishTime))}\n地區：${delDot(renew[i].PageSummary)}\n⭐ 最新消息\n${renew[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(renew[i].PageContent))}\n消息來源皆自：\n經濟部國際貿易局 經貿資訊網\nhttps://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4`
+//         LineBot.broadcast(news)
+//       }
+//       news[i] = `第 ${i + 1} 則\n台灣時間：${delLine(delT(renew[i].PagePublishTime))}\n地區：${delDot(renew[i].PageSummary)}\n⭐ 最新消息\n${renew[i].PageTitle}\n\n📨 主要內容\n${delSpace(delHtmlTag(renew[i].PageContent))}`
+//     }
+//   }
+//   dataB()
+// }
+// everyday()
+// // 7:00推播
+// schedule.scheduleJob('0 0 7 * * *', everyday())
+// // 12:30 推播
+// schedule.scheduleJob('0 30 12 * * *', everyday())
 
 // const data = await rp({ uri: 'https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true', json: true })
 
