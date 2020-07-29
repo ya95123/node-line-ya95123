@@ -2,7 +2,7 @@
 #### 自稱：本地球村民 
 #### 好友 ID ：@535lslfv 
 ![好友QR code](https://i.imgur.com/TUozfXD.png) 
-#### 公開資料來源：[全球商機資訊](https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true) 
+#### API 來源：[全球商機資訊](https://www.trade.gov.tw/Api/Get/pages?nodeid=45&timeRestrict=true) 
 #### 公開資料網站：[經濟部國際貿易局 經貿資訊網](https://www.trade.gov.tw/World/List.aspx?code=7020&nodeID=45&areaID=4&country=b645Lit5ZyL5aSn6Zm4) 
 **資料儲存皆為近7日** <br>
  
